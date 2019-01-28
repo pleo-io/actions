@@ -6,7 +6,7 @@ Runs codecov in a quite compact maneer.
 
 ```
 action "Codecov" {
-  uses = "pleo-io/actions/codecov"
+  uses = "pleo-io/actions/codecov@master"
   needs = ["tests"]
   secrets = ["CODECOV_TOKEN"]
 }
