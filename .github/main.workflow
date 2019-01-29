@@ -1,6 +1,6 @@
 workflow "Build and Publish" {
   on = "push"
-  resolves = "Publish"
+  resolves = "Build"
 }
 
 action "Lint" {
