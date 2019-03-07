@@ -9,9 +9,9 @@ LABEL "com.github.actions.description"="Run go fmt"
 LABEL "com.github.actions.icon"="terminal"
 LABEL "com.github.actions.color"="blue"
 
-RUN apt-get update
-RUN apt-get install -y jq
-RUN apt-get clean
+RUN apt-get update \
+ && apt-get install -y jq \
+ && apt-get clean
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
