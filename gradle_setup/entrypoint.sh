@@ -1,6 +1,6 @@
 #!/bin/sh
 
--set -x -e +o pipefail
+set -x -e +o pipefail
 
 mkdir -p $HOME/.gradle
 
