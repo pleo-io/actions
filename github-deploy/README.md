@@ -1,5 +1,5 @@
 ```
-      - uses: ./github_deploy
+      - uses: pleo-io/actions/github-deploy
         with:
            github_app_private_key: ${{ secrets.GITHUB_DEPLOY_APP_PRIVATE_KEY }}
            deploy_environment: production
