@@ -1,0 +1,23 @@
+on: push
+name: Build and Publish
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Test
+      uses: actions/action-builder/shell@master
+      with:
+        entrypoint: make
+        args: test
+    - name: Lint
+      uses: actions/action-builder/shell@master
+      with:
+        entrypoint: make
+        args: lint
+    - name: Build
+      uses: actions/action-builder/docker@master
+      with:
+        entrypoint: make
+        args: build
