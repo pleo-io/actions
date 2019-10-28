@@ -1,0 +1,24 @@
+name: "Send Github Deploy Statuses"
+description: "Sends GitHub deployment API status events"
+author: "Pleo"
+inputs:
+  githubToken:
+    description: GitHub App installation access token (e.g. GITHUB_TOKEN)
+    required: true
+  deploymentId:
+    required: true
+  deploymentState:
+    required: true
+  repository:
+    description: The repository to trigger a deploy event on \"{owner}/{repo}\" defaults to `$GITHUB_REPOSITORY`
+    required: false
+  deploymentEnvironment:
+    required: false
+  deploymentEnvironmentUrl:
+    required: false
+  deploymentDescription:
+    required: false
+
+runs:
+  using: "node12"
+  main: "lib/main.js"
