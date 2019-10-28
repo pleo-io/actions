@@ -21,42 +21,43 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(require("@actions/core"));
 const rest_1 = __importDefault(require("@octokit/rest"));
 const app_1 = require("@octokit/app");
-function run() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const githubAppID = +core.getInput("github_app_id");
-            const githubAppInstallationID = +core.getInput("github_app_installation_id");
-            const githubAppPrivateKey = core.getInput("github_app_private_key");
-            const ownerRepo = core.getInput("deploy_repository") ||
-                process.env["GITHUB_REPOSITORY"] ||
-                "";
-            const ref = core.getInput("deploy_ref") || process.env["GITHUB_REF"] || "";
-            const env = core.getInput("deploy_environment");
-            const app = new app_1.App({ id: githubAppID, privateKey: githubAppPrivateKey });
-            const octokit = new rest_1.default({
-                auth() {
-                    return __awaiter(this, void 0, void 0, function* () {
-                        const installationAccessToken = yield app.getInstallationAccessToken({
-                            installationId: githubAppInstallationID
-                        });
-                        return `token ${installationAccessToken}`;
-                    });
-                }
+const getAuthenticatedOctokit = (previews) => {
+    const githubAppID = +core.getInput("github_app_id");
+    const githubAppInstallationID = +core.getInput("github_app_installation_id");
+    const githubAppPrivateKey = core.getInput("github_app_private_key");
+    const app = new app_1.App({ id: githubAppID, privateKey: githubAppPrivateKey });
+    return new rest_1.default({
+        previews,
+        auth() {
+            return __awaiter(this, void 0, void 0, function* () {
+                const installationAccessToken = yield app.getInstallationAccessToken({
+                    installationId: githubAppInstallationID
+                });
+                return `token ${installationAccessToken}`;
             });
-            const [owner, repo] = ownerRepo.split("/");
-            console.log(`Triggering Deploy event on '${owner}/${repo}' @ref:'${ref}' in env '${env}'`);
-            const createDeploymentOptions = {
-                owner: owner,
-                repo: repo,
-                ref: ref,
-                required_contexts: [],
-                environment: env
-            };
-            yield octokit.repos.createDeployment(createDeploymentOptions);
-        }
-        catch (error) {
-            core.setFailed(error.message);
         }
     });
+};
+function run() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const octokit = getAuthenticatedOctokit([
+            "ant-man-preview",
+            "machine-man-preview"
+        ]);
+        const ref = core.getInput("deploy_ref") || process.env["GITHUB_REF"] || "";
+        const environment = core.getInput("deploy_environment");
+        const ownerRepo = core.getInput("deploy_repository") ||
+            process.env["GITHUB_REPOSITORY"] ||
+            "";
+        const [owner, repo] = ownerRepo.split("/");
+        console.log(`Triggering Deploy event on '${owner}/${repo}' @ref:'${ref}' in env '${environment}'`);
+        yield octokit.repos.createDeployment({
+            owner,
+            repo,
+            ref,
+            environment,
+            required_contexts: []
+        });
+    });
 }
-run();
+run().catch(error => core.setFailed(error.message));
