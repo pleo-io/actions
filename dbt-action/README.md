@@ -22,7 +22,7 @@ This action executes `dbt` commands. For information about `dbt`, please refer t
 
 ## Example usage
 
-uses: pleo/dbt-action@master
+uses: pleo-io/actions/dbt-action@master
 with:
   dbt-profiles-dir: './profiles'
   dbt-project-dir: './project'
