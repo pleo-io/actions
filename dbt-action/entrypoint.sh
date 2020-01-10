@@ -1,13 +1,15 @@
 #!/bin/sh
 set -e
 
-if [ $# -eq 0 ]
-  then
-    echo "No arguments supplied"
+if [ "$#" -ne 2 ]; then
+    printf "Illegal number of parameters\n"
     exit 1
 fi
 
-dbt_command=$1
+dbt_project_dir=$1
+dbt_command=$2
+
+cd $dbt_project_dir
 
 printf "Running dbt with command %s\n" "$dbt_command"
 

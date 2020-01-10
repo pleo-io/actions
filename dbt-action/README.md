@@ -4,6 +4,10 @@ This action executes `dbt` commands. For information about `dbt`, please refer t
 
 ## Inputs
 
+### `dbt-project-dir`
+
+**Required** Path to the `dbt` project folder.
+
 ### `dbt-command`
 
 **Required** `dbt` command to execute.
@@ -12,4 +16,5 @@ This action executes `dbt` commands. For information about `dbt`, please refer t
 
 uses: pleo-io/actions/dbt-action@master
 with:
+  dbt-project-dir: './project'
   dbt-command: 'compile'

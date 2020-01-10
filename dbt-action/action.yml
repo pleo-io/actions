@@ -2,6 +2,9 @@
 name: 'dbt-action'
 description: 'dbt (data build tool) github action'
 inputs:
+    dbt-project-dir:
+        description: 'Path to the dbt project folder'
+        required: true
     dbt-command:
         description: 'Command to execute'
         required: true
@@ -9,4 +12,5 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
+    - ${{ inputs.dbt-project-dir }}
     - ${{ inputs.dbt-command }}
