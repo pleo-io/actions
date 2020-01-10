@@ -16,4 +16,5 @@ printf '%b\n' "$(cat $dbt_profiles_dir/profiles.yml)"
 
 printf "Running dbt project in folder %s with command %s on target %s\n" "$dbt_project_dir" "$dbt_command" "$dbt_target"
 
-sudo dbt $dbt_command --profiles-dir $dbt_profiles_dir --project-dir $dbt_project_dir --target $dbt_target
+# dbt $dbt_command --profiles-dir $dbt_profiles_dir --project-dir $dbt_project_dir --target $dbt_target
+dbt compile -h
