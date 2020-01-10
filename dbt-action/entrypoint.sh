@@ -11,6 +11,9 @@ dbt_project_dir=$2
 dbt_command=$3
 dbt_target=$4
 
+chown -R appuser:appgroup $dbt_profiles_dir
+chown -R appuser:appgroup $dbt_project_dir
+
 printf "Using profiles from dir %s:\n" "$dbt_profiles_dir"
 printf '%b\n' "$(cat $dbt_profiles_dir/profiles.yml)"
 
