@@ -2,23 +2,11 @@
 name: 'dbt-action'
 description: 'dbt (data build tool) github action'
 inputs:
-    dbt-profiles-dir:
-        description: 'Path to the folder containing profiles.yml file'
-        required: true
-    dbt-project-dir:
-        description: 'Path to the dbt project folder'
-        required: true
     dbt-command:
         description: 'Command to execute'
-        required: true
-    dbt-target:
-        description: 'Target profile for dbt command'
         required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.dbt-profiles-dir }}
-    - ${{ inputs.dbt-project-dir }}
     - ${{ inputs.dbt-command }}
-    - ${{ inputs.dbt-target }}
