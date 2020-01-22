@@ -31,6 +31,7 @@ async function run() {
     process.env["GITHUB_REPOSITORY"] ||
     "";
   const [owner, repo] = ownerRepo.split("/");
+  const autoMerge = core.getInput("auto_merge") !== "false";
 
   console.log(
     `Triggering Deploy event on '${owner}/${repo}' @ref:'${ref}' in env '${environment}'`
@@ -41,7 +42,8 @@ async function run() {
     repo,
     ref,
     environment,
-    required_contexts: []
+    required_contexts: [],
+    auto_merge: autoMerge
   });
 }
 

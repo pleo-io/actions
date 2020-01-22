@@ -1,16 +1,16 @@
-name: 'Trigger Github Deploy Event'
-description: 'triggers a github event using github actions, cirvumvents the $GITHUB_TOKEN limitations'
-author: 'Pierre-Alexandre St-Jean'
+name: "Trigger Github Deploy Event"
+description: "triggers a github event using github actions, cirvumvents the $GITHUB_TOKEN limitations"
+author: "Pierre-Alexandre St-Jean"
 inputs:
   github_app_private_key:
     description: The RSA private key associated with the github_app_id app
     required: true
   github_app_id:
     required: true
-    default: '32215'
+    default: "32215"
   github_app_installation_id:
     required: true
-    default: '1105541'
+    default: "1105541"
 
   deploy_repository:
     description: The repository to trigger a deploy event on \"{owner}/{repo}\" defaults to `$GITHUB_REPOSITORY`
@@ -21,7 +21,10 @@ inputs:
   deploy_environment:
     required: true
     default: staging
+  auto_merge:
+    required: false
+    default: "true"
 
 runs:
-  using: 'node12'
-  main: 'lib/main.js'
+  using: "node12"
+  main: "lib/main.js"
