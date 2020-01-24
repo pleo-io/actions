@@ -41,8 +41,12 @@ function run() {
         const modifiedFilesErrors = typeErrors.filter((error) => modifiedFiles.includes(error.file));
         // Fail if errors are found in modified files
         if (modifiedFilesErrors.length > 0) {
-            console.log('Errors in  modified files:');
-            modifiedFilesErrors.forEach((file) => console.log(file.message));
+            console.log('FILTERS ERRORS, :', JSON.stringify(modifiedFilesErrors));
+            let message = 'Errors in  modified files: \n';
+            modifiedFilesErrors.forEach((file) => {
+                message += file.message + '\n';
+            });
+            console.log(message);
             process.exit(1);
         }
         console.log('No error found in modified files.');
