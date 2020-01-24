@@ -1,9 +1,9 @@
 import { context, GitHub } from "@actions/github";
-import core from "@actions/core";
+import * as core from "@actions/core";
 
 import { Commit, FileStatus } from "./types";
 
-const gh = new GitHub(core.getInput("githubToken"));
+const octokit = new GitHub(core.getInput("githubToken"));
 
 const FILES: string[] = [];
 const commits: Commit[] = context.payload.commits.filter(
@@ -14,7 +14,7 @@ const repo = context.payload.repository?.name || "";
 const owner = context.payload.repository?.organization;
 
 async function processCommit(commit: Commit) {
-  const result = await gh.repos.getCommit({ owner, repo, ref: commit.id });
+  const result = await octokit.repos.getCommit({ owner, repo, ref: commit.id });
 
   if (result && result.data) {
     const files = result.data.files;
