@@ -18,6 +18,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const github_1 = require("@actions/github");
 const core = __importStar(require("@actions/core"));
+const compile_1 = require("./compile");
 const modified_file_1 = require("./modified-file");
 const token = core.getInput("githubToken", { required: true });
 const octokit = new github_1.GitHub(token);
@@ -25,6 +26,7 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         const modifiedFiles = yield modified_file_1.getModifiedFiles(octokit);
         console.log(`Modified files: ${JSON.stringify(modifiedFiles)}`);
+        compile_1.compile(process.argv[2]);
     });
 }
 run().catch(error => core.setFailed(error.message));
