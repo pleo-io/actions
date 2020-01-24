@@ -20,13 +20,33 @@ const github_1 = require("@actions/github");
 const core = __importStar(require("@actions/core"));
 const compile_1 = require("./compile");
 const modified_file_1 = require("./modified-file");
-const token = core.getInput("githubToken", { required: true });
+const token = core.getInput('githubToken', { required: true });
+const flags = core
+    .getInput('flags', { required: false })
+    .split(',')
+    .reduce((acc, current, i) => {
+    acc[i] = current;
+    return acc;
+}, {});
 const octokit = new github_1.GitHub(token);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
+        // List modified files
         const modifiedFiles = yield modified_file_1.getModifiedFiles(octokit);
         console.log(`Modified files: ${JSON.stringify(modifiedFiles)}`);
-        compile_1.compile(process.argv[2]);
+        // List TypeScript errors
+        const typeErrors = compile_1.typecheck(flags);
+        console.log(`Type errors: ${JSON.stringify(modifiedFiles)}`);
+        // Only report errors on changed files
+        const modifiedFilesErrors = typeErrors.filter((file) => modifiedFiles.includes(file));
+        console.log(`FILTERED: Modified files: ${JSON.stringify(modifiedFiles)}`);
+        // Fail if errors are found in modified files
+        if (modifiedFilesErrors) {
+            console.log(`Errors in  modified files: ${JSON.stringify(modifiedFilesErrors)}`);
+            process.exit(1);
+        }
+        console.log('No error found in modified files.');
+        process.exit(0);
     });
 }
-run().catch(error => core.setFailed(error.message));
+run().catch((error) => core.setFailed(error.message));

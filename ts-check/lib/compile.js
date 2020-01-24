@@ -10,17 +10,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ts = __importStar(require("typescript"));
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
-function reportDiagnostics(diagnostics) {
-    diagnostics.forEach(diagnostic => {
-        let message = "Error";
-        if (diagnostic.file) {
-            let { line, character } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start || 0);
-            message += ` ${diagnostic.file.fileName} (${line + 1},${character + 1})`;
-        }
-        message +=
-            ": " + ts.flattenDiagnosticMessageText(diagnostic.messageText, "\n");
-        console.log(message);
-    });
+function reportFileErrors(diagnostics) {
+    return diagnostics
+        .filter((diagnostic) => !!diagnostic.file)
+        .map((diagnostic) => { var _a; return ((_a = diagnostic.file) === null || _a === void 0 ? void 0 : _a.fileName) || ''; });
 }
 function readConfigFile(configFileName) {
     // Read config file
@@ -29,28 +22,22 @@ function readConfigFile(configFileName) {
     const result = ts.parseConfigFileTextToJson(configFileName, configFileText);
     const configObject = result.config;
     if (!configObject) {
-        reportDiagnostics(result.error ? [result.error] : []);
+        console.error(`Could not find config ${configFileName}`);
         process.exit(1);
     }
     // Extract config infromation
     const configParseResult = ts.parseJsonConfigFileContent(configObject, ts.sys, path.dirname(configFileName));
     if (configParseResult.errors.length > 0) {
-        reportDiagnostics(configParseResult.errors);
+        console.error(`Error parsing config ${configFileName}:`, configParseResult.errors);
         process.exit(1);
     }
     return configParseResult;
 }
-function compile(configFileName) {
-    // Extract configuration from config file
+function typecheck(flags) {
+    const configFileName = './tsconfig.json';
     let config = readConfigFile(configFileName);
-    // Compile
-    let program = ts.createProgram(config.fileNames, Object.assign(Object.assign({}, config.options), { noImplicitAny: true }));
+    let program = ts.createProgram(config.fileNames, Object.assign(Object.assign(Object.assign({}, config.options), flags), { noEmit: true }));
     let emitResult = program.emit();
-    // Report errors
-    reportDiagnostics(ts.getPreEmitDiagnostics(program).concat(emitResult.diagnostics));
-    // Return code
-    let exitCode = emitResult.emitSkipped ? 1 : 0;
-    process.exit(exitCode);
+    return reportFileErrors(ts.getPreEmitDiagnostics(program).concat(emitResult.diagnostics));
 }
-exports.compile = compile;
-// compile(process.argv[2]);
+exports.typecheck = typecheck;

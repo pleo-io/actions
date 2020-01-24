@@ -1,9 +1,9 @@
 export interface Commit {
-  id: string;
-  distinct: boolean;
+  id: string
+  distinct: boolean
 }
 
 export enum FileStatus {
-  ADDED = "added",
-  MODIFIED = "modified"
+  ADDED = 'added',
+  MODIFIED = 'modified'
 }

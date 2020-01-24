@@ -1,17 +1,44 @@
-import { GitHub } from "@actions/github";
-import * as core from "@actions/core";
+import {GitHub} from '@actions/github'
+import * as core from '@actions/core'
+import {CompilerOptions} from 'typescript'
 
-import { compile } from "./compile";
-import { getModifiedFiles } from "./modified-file";
+import {typecheck} from './compile'
+import {getModifiedFiles} from './modified-file'
 
-const token = core.getInput("githubToken", { required: true });
-const octokit = new GitHub(token);
+const token = core.getInput('githubToken', {required: true})
+const flags: CompilerOptions = core
+  .getInput('flags', {required: false})
+  .split(',')
+  .reduce((acc: any, current, i) => {
+    acc[i] = current
+    return acc
+  }, {})
+
+const octokit = new GitHub(token)
 
 async function run() {
-  const modifiedFiles = await getModifiedFiles(octokit);
-  console.log(`Modified files: ${JSON.stringify(modifiedFiles)}`);
+  // List modified files
+  const modifiedFiles = await getModifiedFiles(octokit)
+  console.log(`Modified files: ${JSON.stringify(modifiedFiles)}`)
 
-  compile(process.argv[2]);
+  // List TypeScript errors
+  const typeErrors = typecheck(flags)
+
+  // Only report errors on changed files
+  const modifiedFilesErrors = typeErrors.filter((file) =>
+    modifiedFiles.includes(file)
+  )
+
+  // Fail if errors are found in modified files
+  if (modifiedFilesErrors) {
+    console.log(
+      `Errors in  modified files: ${JSON.stringify(modifiedFilesErrors)}`
+    )
+    process.exit(1)
+  }
+
+  console.log('No error found in modified files.')
+  process.exit(0)
 }
 
-run().catch(error => core.setFailed(error.message));
+run().catch((error) => core.setFailed(error.message))
