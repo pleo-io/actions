@@ -1,0 +1,13 @@
+name: "TS - Typecheck"
+description: "Runs tsc with optional override flags against changed files"
+author: "@flehoux/@wfortin"
+inputs:
+  githubToken:
+    description: GitHub App installation access token (e.g. GITHUB_TOKEN)
+    required: true
+  flags:
+    required: false
+
+runs:
+  using: "node12"
+  main: "lib/main.js"

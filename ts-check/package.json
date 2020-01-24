@@ -1,0 +1,30 @@
+{
+  "name": "ts-check",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Runs tsc with optional override flags against changed files",
+  "main": "lib/main.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/actions/javascript-template.git"
+  },
+  "keywords": [
+    "actions",
+    "node",
+    "setup"
+  ],
+  "author": "Pleo & @flehoux/@wfortin",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.0.0",
+    "@actions/github": "^2.1.0"
+  },
+  "devDependencies": {
+    "@types/lru-cache": "^5.1.0",
+    "@types/node": "^12.0.4",
+    "typescript": "^3.5.1"
+  }
+}
