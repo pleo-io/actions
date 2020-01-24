@@ -34,13 +34,15 @@ function run() {
         // List modified files
         const modifiedFiles = yield modified_file_1.getModifiedFiles(octokit);
         console.log(`Modified files: ${JSON.stringify(modifiedFiles)}`);
+        modifiedFiles.forEach((file) => console.log(file));
         // List TypeScript errors
         const typeErrors = compile_1.typecheck(flags);
         // Only report errors on changed files
-        const modifiedFilesErrors = typeErrors.filter((file) => modifiedFiles.includes(file));
+        const modifiedFilesErrors = typeErrors.filter((error) => modifiedFiles.includes(error.file));
         // Fail if errors are found in modified files
         if (modifiedFilesErrors) {
-            console.log(`Errors in  modified files: ${JSON.stringify(modifiedFilesErrors)}`);
+            console.log(`Errors in  modified files:`);
+            modifiedFilesErrors.forEach((file) => console.log(file.message));
             process.exit(1);
         }
         console.log('No error found in modified files.');

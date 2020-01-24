@@ -2,10 +2,34 @@ import * as ts from 'typescript'
 import * as fs from 'fs'
 import * as path from 'path'
 
-function reportFileErrors(diagnostics: ts.Diagnostic[]): string[] {
+import {Error} from './types'
+
+function reportFileErrors(diagnostics: ts.Diagnostic[]): Array<Error> {
   return diagnostics
     .filter((diagnostic) => !!diagnostic.file)
-    .map((diagnostic) => diagnostic.file?.fileName || '')
+    .map((diagnostic) => {
+      // Format error like the TSC compiler
+      // Ex: app/scripts/entry.tsx:46:7 - error TS2322: Type '0' is not assignable to type 'string'.
+      if (diagnostic.file) {
+        const {line, character} = diagnostic.file.getLineAndCharacterOfPosition(
+          diagnostic.start || 0
+        )
+        const error = ts.flattenDiagnosticMessageText(
+          diagnostic.messageText,
+          ''
+        )
+        return {
+          file: diagnostic.file.fileName,
+          message: `${diagnostic.file.fileName}:${line + 1},${character +
+            1} - error TS${diagnostic.code}: ${error}`
+        }
+      }
+
+      return {
+        file: '',
+        message: ''
+      }
+    })
 }
 
 function readConfigFile(configFileName: string) {
@@ -39,11 +63,10 @@ function readConfigFile(configFileName: string) {
   return configParseResult
 }
 
-export function typecheck(flags: ts.CompilerOptions): string[] {
+export function typecheck(flags: ts.CompilerOptions): Error[] {
   const configFileName = './tsconfig.json'
   let config = readConfigFile(configFileName)
 
-  console.log('FLAGS', JSON.stringify(flags, null, 2))
   let program = ts.createProgram(config.fileNames, {
     ...config.options,
     ...flags,

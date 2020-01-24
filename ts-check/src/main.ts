@@ -20,20 +20,20 @@ async function run() {
   // List modified files
   const modifiedFiles = await getModifiedFiles(octokit)
   console.log(`Modified files: ${JSON.stringify(modifiedFiles)}`)
+  modifiedFiles.forEach((file) => console.log(file))
 
   // List TypeScript errors
   const typeErrors = typecheck(flags)
 
   // Only report errors on changed files
-  const modifiedFilesErrors = typeErrors.filter((file) =>
-    modifiedFiles.includes(file)
+  const modifiedFilesErrors = typeErrors.filter((error) =>
+    modifiedFiles.includes(error.file)
   )
 
   // Fail if errors are found in modified files
   if (modifiedFilesErrors) {
-    console.log(
-      `Errors in  modified files: ${JSON.stringify(modifiedFilesErrors)}`
-    )
+    console.log(`Errors in  modified files:`)
+    modifiedFilesErrors.forEach((file) => console.log(file.message))
     process.exit(1)
   }
 

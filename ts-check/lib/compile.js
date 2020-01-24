@@ -13,7 +13,23 @@ const path = __importStar(require("path"));
 function reportFileErrors(diagnostics) {
     return diagnostics
         .filter((diagnostic) => !!diagnostic.file)
-        .map((diagnostic) => { var _a; return ((_a = diagnostic.file) === null || _a === void 0 ? void 0 : _a.fileName) || ''; });
+        .map((diagnostic) => {
+        // Format error like the TSC compiler
+        // Ex: app/scripts/entry.tsx:46:7 - error TS2322: Type '0' is not assignable to type 'string'.
+        if (diagnostic.file) {
+            const { line, character } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start || 0);
+            const error = ts.flattenDiagnosticMessageText(diagnostic.messageText, '');
+            return {
+                file: diagnostic.file.fileName,
+                message: `${diagnostic.file.fileName}:${line + 1},${character +
+                    1} - error TS${diagnostic.code}: ${error}`
+            };
+        }
+        return {
+            file: '',
+            message: ''
+        };
+    });
 }
 function readConfigFile(configFileName) {
     // Read config file
@@ -36,7 +52,6 @@ function readConfigFile(configFileName) {
 function typecheck(flags) {
     const configFileName = './tsconfig.json';
     let config = readConfigFile(configFileName);
-    console.log('FLAGS', JSON.stringify(flags, null, 2));
     let program = ts.createProgram(config.fileNames, Object.assign(Object.assign(Object.assign({}, config.options), flags), { noEmit: true }));
     let emitResult = program.emit();
     return reportFileErrors(ts.getPreEmitDiagnostics(program).concat(emitResult.diagnostics));
