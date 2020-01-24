@@ -8,22 +8,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
 };
 var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
 const github_1 = require("@actions/github");
-const core_1 = __importDefault(require("@actions/core"));
+const core = __importStar(require("@actions/core"));
 const types_1 = require("./types");
-const gh = new github_1.GitHub(core_1.default.getInput("githubToken"));
+const token = core.getInput("githubToken", { required: true });
+const octokit = new github_1.GitHub(token);
 const FILES = [];
 const commits = github_1.context.payload.commits.filter((commit) => commit.distinct);
 const repo = ((_a = github_1.context.payload.repository) === null || _a === void 0 ? void 0 : _a.name) || "";
 const owner = (_b = github_1.context.payload.repository) === null || _b === void 0 ? void 0 : _b.organization;
 function processCommit(commit) {
     return __awaiter(this, void 0, void 0, function* () {
-        const result = yield gh.repos.getCommit({ owner, repo, ref: commit.id });
+        const result = yield octokit.repos.getCommit({ owner, repo, ref: commit.id });
         if (result && result.data) {
             const files = result.data.files;
             files.forEach(file => {
@@ -40,4 +45,4 @@ function run() {
         });
     });
 }
-run().catch(error => core_1.default.setFailed(error.message));
+run().catch(error => core.setFailed(error.message));

@@ -3,7 +3,8 @@ import * as core from "@actions/core";
 
 import { Commit, FileStatus } from "./types";
 
-const octokit = new GitHub(core.getInput("githubToken"));
+const token = core.getInput("githubToken", { required: true });
+const octokit = new GitHub(token);
 
 const FILES: string[] = [];
 const commits: Commit[] = context.payload.commits.filter(
