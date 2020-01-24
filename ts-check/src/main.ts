@@ -31,8 +31,8 @@ async function run() {
   )
 
   // Fail if errors are found in modified files
-  if (modifiedFilesErrors) {
-    console.log(`Errors in  modified files:`)
+  if (modifiedFilesErrors.length > 0) {
+    console.log('Errors in  modified files:')
     modifiedFilesErrors.forEach((file) => console.log(file.message))
     process.exit(1)
   }

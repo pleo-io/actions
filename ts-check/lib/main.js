@@ -40,8 +40,8 @@ function run() {
         // Only report errors on changed files
         const modifiedFilesErrors = typeErrors.filter((error) => modifiedFiles.includes(error.file));
         // Fail if errors are found in modified files
-        if (modifiedFilesErrors) {
-            console.log(`Errors in  modified files:`);
+        if (modifiedFilesErrors.length > 0) {
+            console.log('Errors in  modified files:');
             modifiedFilesErrors.forEach((file) => console.log(file.message));
             process.exit(1);
         }
