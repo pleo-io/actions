@@ -19,8 +19,6 @@ const octokit = new GitHub(token)
 async function run() {
   // List modified files
   const modifiedFiles = await getModifiedFiles(octokit)
-  console.log(`Modified files: ${JSON.stringify(modifiedFiles)}`)
-  modifiedFiles.forEach((file) => console.log(file))
 
   // List TypeScript errors
   const typeErrors = typecheck(flags)
@@ -32,7 +30,6 @@ async function run() {
 
   // Fail if errors are found in modified files
   if (modifiedFilesErrors.length > 0) {
-    console.log('FILTERS ERRORS, :', JSON.stringify(modifiedFilesErrors))
     let message = 'Errors in  modified files: \n'
     modifiedFilesErrors.forEach((file) => {
       message += file.message + '\n'
