@@ -24,8 +24,8 @@ const token = core.getInput('githubToken', { required: true });
 const flags = core
     .getInput('flags', { required: false })
     .split(',')
-    .reduce((acc, current, i) => {
-    acc[i] = current;
+    .reduce((acc, current) => {
+    acc[current] = true;
     return acc;
 }, {});
 const octokit = new github_1.GitHub(token);

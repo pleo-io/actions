@@ -9,8 +9,8 @@ const token = core.getInput('githubToken', {required: true})
 const flags: CompilerOptions = core
   .getInput('flags', {required: false})
   .split(',')
-  .reduce((acc: any, current, i) => {
-    acc[i] = current
+  .reduce((acc: CompilerOptions, current) => {
+    acc[current] = true
     return acc
   }, {})
 
