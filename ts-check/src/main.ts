@@ -1,36 +1,14 @@
-import { context, GitHub } from "@actions/github";
+import { GitHub } from "@actions/github";
 import * as core from "@actions/core";
 
-import { Commit, FileStatus } from "./types";
+import { getModifiedFiles } from "./modified-file";
 
 const token = core.getInput("githubToken", { required: true });
 const octokit = new GitHub(token);
 
-const FILES: string[] = [];
-const commits: Commit[] = context.payload.commits.filter(
-  (commit: Commit) => commit.distinct
-);
-
-const repo = context.payload.repository?.name || "";
-const owner = context.payload.repository?.organization;
-
-async function processCommit(commit: Commit) {
-  const result = await octokit.repos.getCommit({ owner, repo, ref: commit.id });
-
-  if (result && result.data) {
-    const files = result.data.files;
-
-    files.forEach(file => {
-      FileStatus.ADDED === file.status && FILES.push(file.filename);
-      FileStatus.MODIFIED === file.status && FILES.push(file.filename);
-    });
-  }
-}
-
 async function run() {
-  Promise.all(commits.map(processCommit)).then(() => {
-    console.log(`All files: ${JSON.stringify(FILES)}`);
-  });
+  const modifiedFiles = await getModifiedFiles(octokit);
+  console.log(`Modified files: ${JSON.stringify(modifiedFiles)}`);
 }
 
 run().catch(error => core.setFailed(error.message));
