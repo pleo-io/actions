@@ -36,10 +36,8 @@ function run() {
         console.log(`Modified files: ${JSON.stringify(modifiedFiles)}`);
         // List TypeScript errors
         const typeErrors = compile_1.typecheck(flags);
-        console.log(`Type errors: ${JSON.stringify(modifiedFiles)}`);
         // Only report errors on changed files
         const modifiedFilesErrors = typeErrors.filter((file) => modifiedFiles.includes(file));
-        console.log(`FILTERED: Modified files: ${JSON.stringify(modifiedFiles)}`);
         // Fail if errors are found in modified files
         if (modifiedFilesErrors) {
             console.log(`Errors in  modified files: ${JSON.stringify(modifiedFilesErrors)}`);

@@ -36,6 +36,7 @@ function readConfigFile(configFileName) {
 function typecheck(flags) {
     const configFileName = './tsconfig.json';
     let config = readConfigFile(configFileName);
+    console.log('FLAGS', JSON.stringify(flags, null, 2));
     let program = ts.createProgram(config.fileNames, Object.assign(Object.assign(Object.assign({}, config.options), flags), { noEmit: true }));
     let emitResult = program.emit();
     return reportFileErrors(ts.getPreEmitDiagnostics(program).concat(emitResult.diagnostics));
