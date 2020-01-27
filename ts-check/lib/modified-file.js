@@ -13,7 +13,6 @@ const github_1 = require("@actions/github");
 const types_1 = require("./types");
 function processModifiedFiles(files) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log('files: ', files);
         return files.reduce((acc, f) => {
             if (f.status === types_1.FileStatus.ADDED || f.status === types_1.FileStatus.MODIFIED) {
                 acc.push(f.filename);
@@ -25,13 +24,11 @@ function processModifiedFiles(files) {
 function getModifiedFiles(octokit) {
     var _a;
     return __awaiter(this, void 0, void 0, function* () {
-        console.log('context: ', github_1.context);
         const options = octokit.pulls.listFiles.endpoint.merge({
             owner: github_1.context.repo.owner,
             repo: github_1.context.repo.repo,
             pull_number: (_a = github_1.context.payload.pull_request) === null || _a === void 0 ? void 0 : _a.number
         });
-        console.log('options: ', options);
         return processModifiedFiles(yield octokit.paginate(options).then((files) => {
             return files;
         }));

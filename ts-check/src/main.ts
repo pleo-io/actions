@@ -19,7 +19,6 @@ const octokit = new GitHub(token)
 async function run() {
   // List modified files
   const modifiedFiles = await getModifiedFiles(octokit)
-  console.log('modifiedFiles: ', modifiedFiles)
 
   // List TypeScript errors
   const typeErrors = typecheck(flags)
@@ -28,7 +27,6 @@ async function run() {
   const modifiedFilesErrors = typeErrors.filter((error) =>
     modifiedFiles.includes(error.file)
   )
-  console.log('modifiedFilesErrors: ', modifiedFilesErrors)
 
   // Fail if errors are found in modified files
   if (modifiedFilesErrors.length > 0) {
