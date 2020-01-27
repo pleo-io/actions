@@ -20,7 +20,7 @@ export async function getModifiedFiles(octokit: GitHub): Promise<string[]> {
   const options = octokit.pulls.listFiles.endpoint.merge({
     owner: context.repo.owner,
     repo: context.repo.repo,
-    pull_number: context.payload.pull_request
+    pull_number: context.payload.pull_request?.number
   })
   console.log('options: ', options)
   return processModifiedFiles(
