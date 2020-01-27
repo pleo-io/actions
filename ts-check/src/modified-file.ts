@@ -16,13 +16,13 @@ async function processModifiedFiles(
 }
 
 export async function getModifiedFiles(octokit: GitHub): Promise<string[]> {
-  console.log('getModifiedFiles')
+  console.log('getModifiedFiles: ', context)
   const options = octokit.pulls.listFiles.endpoint.merge({
     owner: context.repo.owner,
     repo: context.repo.repo,
     pull_number: context.payload.pull_request
   })
-  console.log(options)
+  console.log('options: ', options)
   return processModifiedFiles(
     await octokit.paginate(options).then((files) => {
       return files
