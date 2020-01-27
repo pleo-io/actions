@@ -23,12 +23,13 @@ function processModifiedFiles(files) {
     });
 }
 function getModifiedFiles(octokit) {
+    var _a;
     return __awaiter(this, void 0, void 0, function* () {
         console.log('context: ', github_1.context);
         const options = octokit.pulls.listFiles.endpoint.merge({
             owner: github_1.context.repo.owner,
             repo: github_1.context.repo.repo,
-            pull_number: github_1.context.payload.pull_request
+            pull_number: (_a = github_1.context.payload.pull_request) === null || _a === void 0 ? void 0 : _a.number
         });
         console.log('options: ', options);
         return processModifiedFiles(yield octokit.paginate(options).then((files) => {
