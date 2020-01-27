@@ -32,7 +32,7 @@ const octokit = new github_1.GitHub(token);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         // List modified files
-        const modifiedFiles = yield modified_file_1.getModifiedFilesTwo(octokit);
+        const modifiedFiles = yield modified_file_1.getModifiedFiles(octokit);
         // List TypeScript errors
         const typeErrors = compile_1.typecheck(flags);
         // Only report errors on changed files

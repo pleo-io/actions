@@ -21,7 +21,7 @@ function processModifiedFiles(files) {
         }, []);
     });
 }
-function getModifiedFilesTwo(octokit) {
+function getModifiedFiles(octokit) {
     return __awaiter(this, void 0, void 0, function* () {
         const options = octokit.pulls.listFiles.endpoint.merge({
             owner: github_1.context.repo.owner,
@@ -33,4 +33,4 @@ function getModifiedFilesTwo(octokit) {
         }));
     });
 }
-exports.getModifiedFilesTwo = getModifiedFilesTwo;
+exports.getModifiedFiles = getModifiedFiles;

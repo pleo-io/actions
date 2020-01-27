@@ -14,7 +14,7 @@ async function processModifiedFiles(
   }, [])
 }
 
-export async function getModifiedFilesTwo(octokit: GitHub): Promise<string[]> {
+export async function getModifiedFiles(octokit: GitHub): Promise<string[]> {
   const options = octokit.pulls.listFiles.endpoint.merge({
     owner: context.repo.owner,
     repo: context.repo.repo,

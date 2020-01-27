@@ -3,7 +3,7 @@ import * as core from '@actions/core'
 import {CompilerOptions} from 'typescript'
 
 import {typecheck} from './compile'
-import {getModifiedFilesTwo} from './modified-file'
+import {getModifiedFiles} from './modified-file'
 
 const token = core.getInput('githubToken', {required: true})
 const flags: CompilerOptions = core
@@ -18,7 +18,7 @@ const octokit = new GitHub(token)
 
 async function run() {
   // List modified files
-  const modifiedFiles = await getModifiedFilesTwo(octokit)
+  const modifiedFiles = await getModifiedFiles(octokit)
 
   // List TypeScript errors
   const typeErrors = typecheck(flags)
