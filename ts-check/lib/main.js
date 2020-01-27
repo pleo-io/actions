@@ -33,10 +33,12 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         // List modified files
         const modifiedFiles = yield modified_file_1.getModifiedFiles(octokit);
+        console.log('modifiedFiles: ', modifiedFiles);
         // List TypeScript errors
         const typeErrors = compile_1.typecheck(flags);
         // Only report errors on changed files
         const modifiedFilesErrors = typeErrors.filter((error) => modifiedFiles.includes(error.file));
+        console.log('modifiedFilesErrors: ', modifiedFilesErrors);
         // Fail if errors are found in modified files
         if (modifiedFilesErrors.length > 0) {
             let message = 'Errors in  modified files: \n';
