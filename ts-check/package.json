@@ -20,7 +20,8 @@
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.0.0",
-    "@actions/github": "^2.1.0"
+    "@actions/github": "^2.1.0",
+    "@octokit/rest": "^16.38.3"
   },
   "devDependencies": {
     "@types/lru-cache": "^5.1.0",
