@@ -1,29 +1,28 @@
 import {context, GitHub} from '@actions/github'
+import {ReposGetCommitResponseFilesItem} from '@octokit/rest'
 
-import {Commit, FileStatus} from './types'
+import {FileStatus} from './types'
 
-const FILES: string[] = []
-const commits: Commit[] = context.payload.commits.filter(
-  (commit: Commit) => commit.distinct
-)
-
-const repo = context.payload.repository?.name || ''
-const owner = context.payload.repository?.organization
-
-async function processCommit(octokit: GitHub, commit: Commit) {
-  const result = await octokit.repos.getCommit({owner, repo, ref: commit.id})
-
-  if (result && result.data) {
-    const files = result.data.files
-
-    files.forEach((file) => {
-      FileStatus.ADDED === file.status && FILES.push(file.filename)
-      FileStatus.MODIFIED === file.status && FILES.push(file.filename)
-    })
-  }
+async function processModifiedFiles(
+  files: ReposGetCommitResponseFilesItem[]
+): Promise<string[]> {
+  return files.reduce((acc: string[], f) => {
+    if (f.status === FileStatus.ADDED || f.status === FileStatus.MODIFIED) {
+      acc.push(f.filename)
+    }
+    return acc
+  }, [])
 }
 
-export async function getModifiedFiles(octokit: GitHub) {
-  await Promise.all(commits.map((commit) => processCommit(octokit, commit)))
-  return FILES
+export async function getModifiedFilesTwo(octokit: GitHub): Promise<string[]> {
+  const options = octokit.pulls.listFiles.endpoint.merge({
+    owner: context.repo.owner,
+    repo: context.repo.repo,
+    pull_number: context.payload.pull_request
+  })
+  return processModifiedFiles(
+    await octokit.paginate(options).then((files) => {
+      return files
+    })
+  )
 }
