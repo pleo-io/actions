@@ -21,6 +21,9 @@ inputs:
   deploy_environment:
     required: true
     default: staging
+  deploy_payload:
+    required: false
+    default: "{}"
   auto_merge:
     required: false
     default: "true"

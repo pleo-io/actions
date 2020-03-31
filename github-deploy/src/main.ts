@@ -26,6 +26,7 @@ async function run() {
   ]);
   const ref = core.getInput("deploy_ref") || process.env["GITHUB_REF"] || "";
   const environment = core.getInput("deploy_environment");
+  const payload = core.getInput("deploy_payload")
   const ownerRepo =
     core.getInput("deploy_repository") ||
     process.env["GITHUB_REPOSITORY"] ||
@@ -43,7 +44,8 @@ async function run() {
     ref,
     environment,
     required_contexts: [],
-    auto_merge: autoMerge
+    auto_merge: autoMerge,
+    payload: payload
   });
 }
 
