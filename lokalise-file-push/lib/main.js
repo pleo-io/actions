@@ -11,16 +11,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
-const core_1 = __importDefault(require("@actions/core"));
+const ghCore = __importStar(require("@actions/core"));
 const node_api_1 = require("@lokalise/node-api");
-const apiKey = core_1.default.getInput("api-token");
-const projectId = core_1.default.getInput("project-id");
-const filePath = core_1.default.getInput("file-path");
-const tag = core_1.default.getInput("tag");
-const locales = core_1.default.getInput("locales");
+const apiKey = ghCore.getInput("api-token");
+const projectId = ghCore.getInput("project-id");
+const filePath = ghCore.getInput("file-path");
+const tag = ghCore.getInput("tag");
+const locales = ghCore.getInput("locales");
 const LANG_ISO_PLACEHOLDER = "%LANG_ISO%";
 function getLanguageISOCodes(lokalise, projectId) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -57,7 +64,7 @@ function uploadFiles({ lokalise, projectId, filePath, tag, locales, }) {
                     lang_iso: lang,
                     tags: [tag],
                 });
-                console.log("Uploaded language file " + filename);
+                console.log("Uploaded language file: " + filename);
             }
             catch (error) {
                 console.error(`Error reading language file ${lang}: ${error.message}`);
@@ -74,4 +81,4 @@ uploadFiles({
     locales: JSON.parse(locales),
 })
     .then(() => console.log("Finished"))
-    .catch((error) => core_1.default.setFailed(error ? error.message : "Unknown error"));
+    .catch((error) => ghCore.setFailed(error ? error.message : "Unknown error"));
