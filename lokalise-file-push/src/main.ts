@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs";
-import ghCore from "@actions/core";
+import * as ghCore from "@actions/core";
 import { LokaliseApi } from "@lokalise/node-api";
 
 const apiKey = ghCore.getInput("api-token");
