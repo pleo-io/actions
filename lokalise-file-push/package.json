@@ -1,0 +1,13 @@
+{
+  "name": "lokalise-file-push",
+  "version": "0.0.11",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@actions/core": "^1.1.1",
+    "@lokalise/node-api": "^1.2.0"
+  }
+}
