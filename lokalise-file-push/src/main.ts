@@ -58,7 +58,7 @@ async function uploadFiles({
         lang_iso: lang,
         tags: [tag],
       });
-      console.log("Uploaded language file " + filename);
+      console.log("Uploaded language file: " + filename);
     } catch (error) {
       console.error(`Error reading language file ${lang}: ${error.message}`);
     }
