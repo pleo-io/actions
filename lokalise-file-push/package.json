@@ -1,6 +1,6 @@
 {
   "name": "lokalise-file-push",
-  "version": "0.0.11",
+  "version": "0.0.0",
   "description": "Uploads file to lokalise",
   "main": "lib/main.js",
   "keywords": [],

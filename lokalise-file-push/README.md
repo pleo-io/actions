@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: pleo-io/actions/lokalise-file-push@v0.0.11
+      - uses: pleo-io/actions/lokalise-file-push
         with:
           # Api token for the Lokalise account
           # with read/write access to the project
