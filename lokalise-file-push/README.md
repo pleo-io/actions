@@ -33,8 +33,8 @@ jobs:
           # The relative file path where language files will be found
           file-path: src/locales/%LANG_ISO%/messages.po
 
-          # Tag
-          tag: tagName
+          # Tags
+          tags: '["tagName","tagName1"]'
 
           # Locales
           locales: '["en", "fr"]'
