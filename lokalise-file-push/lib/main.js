@@ -26,7 +26,7 @@ const node_api_1 = require("@lokalise/node-api");
 const apiKey = ghCore.getInput("api-token");
 const projectId = ghCore.getInput("project-id");
 const filePath = ghCore.getInput("file-path");
-const tag = ghCore.getInput("tag");
+const tags = ghCore.getInput("tags");
 const locales = ghCore.getInput("locales");
 const LANG_ISO_PLACEHOLDER = "%LANG_ISO%";
 function getLanguageISOCodes(lokalise, projectId) {
@@ -49,7 +49,7 @@ function readLanguageFile(path) {
         });
     });
 }
-function uploadFiles({ lokalise, projectId, filePath, tag, locales, }) {
+function uploadFiles({ lokalise, projectId, filePath, tags, locales, }) {
     return __awaiter(this, void 0, void 0, function* () {
         const languageCodes = locales || (yield getLanguageISOCodes(lokalise, projectId));
         const starterPromise = Promise.resolve(null);
@@ -62,7 +62,7 @@ function uploadFiles({ lokalise, projectId, filePath, tag, locales, }) {
                     data: buff.toString("base64"),
                     filename,
                     lang_iso: lang,
-                    tags: [tag],
+                    tags,
                 });
                 console.log("Uploaded language file: " + filename);
             }
@@ -77,7 +77,7 @@ uploadFiles({
     lokalise: new node_api_1.LokaliseApi({ apiKey }),
     projectId,
     filePath: path_1.default.join(process.env.GITHUB_WORKSPACE ? process.env.GITHUB_WORKSPACE : "", filePath),
-    tag,
+    tags: JSON.parse(tags),
     locales: JSON.parse(locales),
 })
     .then(() => console.log("Finished"))

@@ -6,7 +6,7 @@ import { LokaliseApi } from "@lokalise/node-api";
 const apiKey = ghCore.getInput("api-token");
 const projectId = ghCore.getInput("project-id");
 const filePath = ghCore.getInput("file-path");
-const tag = ghCore.getInput("tag");
+const tags = ghCore.getInput("tags");
 const locales = ghCore.getInput("locales");
 
 const LANG_ISO_PLACEHOLDER = "%LANG_ISO%";
@@ -35,13 +35,13 @@ async function uploadFiles({
   lokalise,
   projectId,
   filePath,
-  tag,
+  tags,
   locales,
 }: {
   lokalise: LokaliseApi;
   projectId: string;
   filePath: string;
-  tag?: string;
+  tags: string[];
   locales?: string[];
 }) {
   const languageCodes =
@@ -56,7 +56,7 @@ async function uploadFiles({
         data: buff.toString("base64"),
         filename,
         lang_iso: lang,
-        tags: [tag],
+        tags,
       });
       console.log("Uploaded language file: " + filename);
     } catch (error) {
@@ -76,7 +76,7 @@ uploadFiles({
     process.env.GITHUB_WORKSPACE ? process.env.GITHUB_WORKSPACE : "",
     filePath
   ),
-  tag,
+  tags: JSON.parse(tags),
   locales: JSON.parse(locales),
 })
   .then(() => console.log("Finished"))

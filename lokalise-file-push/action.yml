@@ -13,8 +13,8 @@ inputs:
   file-path:
     description: The file path to find language files
     required: true
-  tag:
-    description: Tag for messages
+  tags:
+    description: List of tags for messages
   locales:
     description: List of locales should be pushed to localise, if not provided all locales from project will be fetched
 
