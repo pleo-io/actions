@@ -50,5 +50,5 @@ jobs:
           task-description: Hello, it is a task description
 
           # Task options for https://app.lokalise.com/api2docs/curl/#transition-create-a-task-post
-          task-options: "{'auto_close_task': true, 'auto_close_languages': true}"
+          task-options: '{"auto_close_task": true, "auto_close_languages": true}'
 ```
