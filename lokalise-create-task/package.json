@@ -1,0 +1,20 @@
+{
+  "name": "lokalise-create-task",
+  "version": "1.0.0",
+  "description": "Create task for localise",
+  "main": "lib/main.js",
+  "keywords": [],
+  "author": "Pleo && Igor Dolzhenkov",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@actions/core": "^1.1.1",
+    "@lokalise/node-api": "^1.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^3.5.1",
+    "@types/node": "^13.13.5"
+  }
+}

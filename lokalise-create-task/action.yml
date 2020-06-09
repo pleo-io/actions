@@ -1,0 +1,33 @@
+name: Lokalise Create Task
+description: "Create task for keys by tags"
+branding:
+  icon: arrow-up-circle
+  color: purple
+inputs:
+  api-token:
+    description: API token
+    required: true
+  project-id:
+    description: The project ID
+    required: true
+  tags:
+    description: List of tags for messages
+    required: true
+  team-name:
+    description: Name of the team for assignees
+    required: true
+  assignee-email-list:
+    description: List of assignee emails for task
+    required: true
+  task-title:
+    description: Title of the task
+    required: true
+  task-description:
+    description: Description of the task
+    required: true
+  task-options:
+    description: Object with other options for task
+
+runs:
+  using: "node12"
+  main: "lib/main.js"
