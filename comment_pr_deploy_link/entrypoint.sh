@@ -2,7 +2,7 @@
 set -e
 
 SANITIZED_BRANCH_NAME=$(echo "$BRANCH_NAME" | tr ".\\/+" "-")
-COMMENT="The app for PR is available at https://$SANITIZED_BRANCH_NAME.backoffice.staging.pleo.io"
+COMMENT="The app for PR is available at https://$SANITIZED_BRANCH_NAME.$PROJECT_NAME.staging.pleo.io"
 
 PAYLOAD=$(echo '{}' | jq --arg body "$COMMENT" '.body = $body')
 
