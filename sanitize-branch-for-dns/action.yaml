@@ -1,0 +1,19 @@
+name: 'Sanitize branch name'
+author: 'Cole Bittel'
+description: 'Sanitize branch name for DNS creation'
+inputs:
+  github_head_ref:
+    description: 'env var generated from GitHub context (eg. `refs/head/feature/my-branch`)'
+    required: true
+  github_ref:
+    description: 'env var generated from GitHub context (eg. `feature/my-branch`)'
+    required: true
+outputs:
+  branch_name:
+    description: 'PR branch name (eg. `feature-my-branch`)'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.GITHUB_HEAD_REF }}
+    - ${{ inputs.GITHUB_REF }}
