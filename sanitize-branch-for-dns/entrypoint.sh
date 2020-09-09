@@ -13,10 +13,17 @@ echo "\$GITHUB_HEAD_REF is NOT empty"
 BN=$GITHUB_HEAD_REF
 fi
 
-
 # Trimming and replacing characters to make URL user friendly
 BN=$(echo "$BN" | tr '/_.' '-')
 BN=$(echo "$BN" | cut -c1-40)
+
+# All uppercase to lowercase
+BN=$(echo "$BN" | tr '[A-Z]' '[a-z]')
+echo "lowercased = $BN"
+
+# If ends in dash, remove
+BN=${BN%%-}
+echo "suffix dashes removed = $BN"
 
 # Abort if can't create branch name, as safety precaution
 if [ -z "$BN" ]
