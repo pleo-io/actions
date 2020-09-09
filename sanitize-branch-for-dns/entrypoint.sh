@@ -26,4 +26,4 @@ exit 1
 fi
 
 echo BN=$BN
-echo ::set-env name=branch_name::${BN}
+echo ::set-output name=branch_name::${BN}
