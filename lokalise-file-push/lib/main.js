@@ -70,7 +70,7 @@ function uploadFiles({ lokalise, projectId, filePath, tags, locales, }) {
                 console.error(`Error reading language file ${lang}: ${error.message}`);
             }
         });
-        yield languageCodes.reduce((p, lang) => __awaiter(this, void 0, void 0, function* () { return p.then(() => uploadFile(lang)); }), starterPromise);
+        return yield languageCodes.reduce((p, lang) => __awaiter(this, void 0, void 0, function* () { return p.then(() => uploadFile(lang)); }), starterPromise);
     });
 }
 uploadFiles({
@@ -80,5 +80,8 @@ uploadFiles({
     tags: JSON.parse(tags),
     locales: JSON.parse(locales),
 })
-    .then(() => console.log("Finished"))
+    .then(() => {
+    ghCore.setOutput("uploaded", "true");
+    console.log("Finished");
+})
     .catch((error) => ghCore.setFailed(error ? error.message : "Unknown error"));

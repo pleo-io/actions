@@ -63,7 +63,7 @@ async function uploadFiles({
       console.error(`Error reading language file ${lang}: ${error.message}`);
     }
   };
-  await languageCodes.reduce(
+  return await languageCodes.reduce(
     async (p: Promise<void>, lang: string) => p.then(() => uploadFile(lang)),
     starterPromise
   );
@@ -79,7 +79,10 @@ uploadFiles({
   tags: JSON.parse(tags),
   locales: JSON.parse(locales),
 })
-  .then(() => console.log("Finished"))
+  .then(() => {
+    ghCore.setOutput("uploaded", "true");
+    console.log("Finished");
+  })
   .catch((error: Error) =>
     ghCore.setFailed(error ? error.message : "Unknown error")
   );
