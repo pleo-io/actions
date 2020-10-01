@@ -1,4 +1,4 @@
-const getLokaliseSpecificText = (text: string): string => {
+const getContext = (text: string): string => {
   const foundText = text.match(
     /<!--- LOKALIZE CONTEXT FOR TRANSLATORS -->(\n| )*((.|\n)*)(\n| )*<!--- LOKALIZE CONTEXT FOR TRANSLATORS -->/
   );
@@ -19,15 +19,18 @@ const getAllImages = (text: string): string[] => {
 
 export const getTaskDescription = (description: string): string => {
   if (description) {
-    const specificText = getLokaliseSpecificText(description);
-    if (!specificText) {
+    const contextText = getContext(description).trim();
+    if (!contextText) {
       return description;
     }
     const clubhouseLink = getClubhouseLink(description);
     const allImages = getAllImages(description);
-    return `${clubhouseLink}\n${specificText}\n${allImages
-      .map((path) => `screenshot: ${path}`)
-      .join("\n")}`;
+
+    return `${clubhouseLink ? `${clubhouseLink}\n` : ""}${contextText}${
+      allImages && allImages.length > 0
+        ? `\n${allImages.map((path) => `screenshot: ${path}`).join("\n")}`
+        : ""
+    }`;
   }
   return "";
 };
