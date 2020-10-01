@@ -19,7 +19,7 @@
   "author": "Pleo & @flehoux/@wfortin",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.0.0",
+    "@actions/core": "^1.2.6",
     "@actions/github": "^2.1.0",
     "@octokit/rest": "^16.38.3"
   },
