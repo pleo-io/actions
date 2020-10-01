@@ -18,6 +18,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const node_api_1 = require("@lokalise/node-api");
 const ghCore = __importStar(require("@actions/core"));
+const helpers_1 = require("./helpers");
 const apiKey = ghCore.getInput("api-token");
 const projectId = ghCore.getInput("project-id");
 const keyTags = ghCore.getInput("tags");
@@ -60,7 +61,7 @@ function getAssigneeIdObject(lokalise) {
 }
 const createTask = (lokalise, language, keys, assigneeIdList) => __awaiter(void 0, void 0, void 0, function* () {
     const options = JSON.parse(taskOptions);
-    yield lokalise.tasks.create(Object.assign({ title: taskTitle, description: taskDescription, languages: [
+    yield lokalise.tasks.create(Object.assign({ title: taskTitle, description: helpers_1.getTaskDescription(taskDescription), languages: [
             {
                 language_iso: language,
                 users: assigneeIdList,
