@@ -1,5 +1,6 @@
 import { LokaliseApi } from "@lokalise/node-api";
 import * as ghCore from "@actions/core";
+import { getTaskDescription } from "./helpers";
 
 const apiKey = ghCore.getInput("api-token");
 const projectId = ghCore.getInput("project-id");
@@ -55,7 +56,7 @@ const createTask = async (
   await lokalise.tasks.create(
     {
       title: taskTitle,
-      description: taskDescription,
+      description: getTaskDescription(taskDescription),
       languages: [
         {
           language_iso: language,

@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "@types/jest": "^26.0.14",
+    "ts-jest": "^26.4.1"
+  }
+}
