@@ -1,0 +1,290 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"MIME-Version: 1.0\n"
+"Language: \n"
+"Plural-Forms: \n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Content-Transfer-Encoding: \n"
+
+#: src/App.js:29
+#~ msgid "10 Ni223423434234ce"
+#~ msgstr "10 N223423434234ice"
+
+#: src/App.js:39
+msgid "13 Nice"
+msgstr "13 Nice"
+
+#~ msgid "13 Niw434343efwce"
+#~ msgstr "13 Nice"
+
+#~ msgid "13 Niw4423423423434343efwce"
+#~ msgstr "13 Nice"
+
+#~ msgid "13 Niw44234332334423423434343efwce"
+#~ msgstr "13 2342342Ni234234ce"
+
+#~ msgid "13 Niw4423433423423434343efwce"
+#~ msgstr "13 Ni234234ce"
+
+#~ msgid "13 Niwefwce"
+#~ msgstr "13 Nice"
+
+#: src/App.js:40
+msgid "14 Nice"
+msgstr "14 Nice"
+
+#~ msgid "142342342343 2223423423423423423345345345422344324234234423434234"
+#~ msgstr "13 23423423423423345345232342234243443234234234234"
+
+#: src/App.js:41
+msgid "Buffer 13123 zone"
+msgstr "Buffer 13123 zone"
+
+#: src/App.js:46
+msgid "Buffer 234"
+msgstr "Buffer 234"
+
+#: src/App.js:47
+msgid "Buffer bob kola"
+msgstr "Buffer bob kola"
+
+#: src/App.js:44
+msgid "Buffer eger"
+msgstr "Buffer eger"
+
+#: src/App.js:39
+#~ msgid "Buffer zone"
+#~ msgstr "Buffer zone"
+
+#: src/App.js:42
+msgid "Buffer zone 123123 123 123 123"
+msgstr "Buffer zone 123123 123 123 123"
+
+#: src/App.js:43
+msgid "Buffer zone111"
+msgstr "Buffer zone111"
+
+#: src/App.js:45
+msgid "Buffer zongege111"
+msgstr "Buffer zongege111"
+
+#: src/App.js:90
+msgid "Crazy Nic!!"
+msgstr "Crazy Nic!!"
+
+#: src/App.js:63
+msgid "F231ire me 1"
+msgstr "F231ire me 1"
+
+#: src/App.js:62
+msgid "Fir123e me"
+msgstr "Fir123e me"
+
+#: src/App.js:60
+#~ msgid "Fire me"
+#~ msgstr "Fire me"
+
+#: src/App.js:61
+#~ msgid "Fire me 1"
+#~ msgstr "Fire me 1"
+
+#: src/App.js:64
+msgid "Fire me 2"
+msgstr "Fire me 2"
+
+#: src/App.js:65
+msgid "Fire me 23"
+msgstr "Fire me 23"
+
+#: src/App.js:37
+msgid "Go go43re go"
+msgstr "Go go43re go"
+
+#: src/App.js:36
+msgid "Go gore go"
+msgstr "Go gore go"
+
+#: src/App.js:38
+msgid "Go hello go"
+msgstr "Go hello go"
+
+#: src/App.js:61
+msgid "Google me"
+msgstr "Google me"
+
+#: src/App.js:67
+msgid "Hello"
+msgstr "Hello"
+
+#: src/App.js:51
+msgid "Hello sir"
+msgstr "Hello sir"
+
+#: src/App.js:30
+#~ msgid "Hi guy"
+#~ msgstr "Hi guy"
+
+#~ msgid "Hifwef guy"
+#~ msgstr "Hifwef guy"
+
+#: src/App.js:30
+#~ msgid "Hifweffef guy"
+#~ msgstr "Hifweffef guy"
+
+#: src/App.js:31
+msgid "Hifweffwfefef guy"
+msgstr "Hifweffwfefef guy"
+
+#: src/App.js:60
+msgid "Kiko kiko"
+msgstr "Kiko kiko"
+
+#: src/App.js:96
+msgid "Last time I had to configure webpack {0,date}"
+msgstr "Last time I had to configure webpack {0,date}"
+
+#: src/App.js:24
+#~ msgid "Let's go"
+#~ msgstr "Let's go"
+
+#: src/App.js:25
+#~ msgid "Let's go kola"
+#~ msgstr "Let's go kola"
+
+#: src/App.js:26
+msgid "Let's go kola_ wefwef"
+msgstr "Let's go kola_ wefwef"
+
+#: src/App.js:24
+msgid "Let's sdfgo"
+msgstr "Let's sdfgo"
+
+#: src/App.js:25
+msgid "Let's sdfgo hello"
+msgstr "Let's sdfgo hello"
+
+#: src/App.js:31
+#~ msgid "Loli"
+#~ msgstr "Loli"
+
+#: src/App.js:32
+msgid "Lolicdcpwfwefwefe"
+msgstr "Lolicdcpwfwefwefe"
+
+#: src/App.js:27
+#~ msgid "Make no push"
+#~ msgstr "Make no push"
+
+#: src/App.js:28
+msgid "Make nosds push"
+msgstr "Make nosds push"
+
+#: src/App.js:32
+#~ msgid "NEW LOCALE"
+#~ msgstr "NEW LOCALE"
+
+#: src/App.js:28
+#~ msgid "NEW LOCALE3232"
+#~ msgstr "NEW LOCALE3232"
+
+#: src/App.js:33
+msgid "NEW LOCALEsd fsdf"
+msgstr "NEW LOCALEsd fsdf"
+
+#: src/App.js:34
+msgid "NEW LOsdfsdfsdf CALE"
+msgstr "NEW LOsdfsdfsdf CALE"
+
+#: src/App.js:28
+#~ msgid "NEW LdsdsdsdsgfsdfOCALE3232"
+#~ msgstr "NEW LdsdsdsdsgfsdfOCALE3232"
+
+#: src/App.js:28
+#~ msgid "NEW LdsdsdsdsgfsdffdfsfOCALE3232"
+#~ msgstr "NEW LdsdsdsdsgfsdffdfsfOCALE3232"
+
+#: src/App.js:28
+#~ msgid "NEW LdsdsdsdsgfsdffdfsffsfdsOCALE3232"
+#~ msgstr "NEW LdsdsdsdsgfsdffdfsffsfdsOCALE3232"
+
+#: src/App.js:29
+msgid "NEW LdsdsdsdsgfsdffdfsffsfdsfdfdfsdsdsafsdfsfOCALE3232"
+msgstr "NEW LdsdsdsdsgfsdffdfsffsfdsfdfdfsdsdsafsdfsfOCALE3232"
+
+#: src/App.js:23
+#~ msgid "New ride"
+#~ msgstr "New ride"
+
+#: src/App.js:23
+msgid "New ride wsdf weerf"
+msgstr "New ride wsdf weerf"
+
+#: src/App.js:54
+msgid "New text"
+msgstr "New text"
+
+#: src/App.js:57
+msgid "Next texfefeft"
+msgstr "Next texfefeft"
+
+#: src/App.js:52
+#~ msgid "Next text"
+#~ msgstr "Next text"
+
+#: src/App.js:24
+#~ msgid "Nice push"
+#~ msgstr "Nice push"
+
+#: src/App.js:35
+msgid "Okey Gffdoogle"
+msgstr "Okey Gffdoogle"
+
+#: src/App.js:28
+#~ msgid "Saved world"
+#~ msgstr "Saved world"
+
+#: src/App.js:30
+msgid "Saved123123 world 123123"
+msgstr "Saved123123 world 123123"
+
+#: src/App.js:59
+msgid "This hikolp 12312"
+msgstr "This hikolp 12312"
+
+#: src/App.js:14
+msgid "This message is translated and has a <0>link</0>"
+msgstr "This message is translated and has a <0>link</0>"
+
+#: src/App.js:10
+msgid "This message will fallback to {fallbackLang} / {count}!"
+msgstr "This message will fallback to {fallbackLang} / {count}!"
+
+#: src/App.js:58
+msgid "This time it should work now go kola"
+msgstr "This time it should work now go kola"
+
+#: src/App.js:48
+msgid "Wow, not bad at all"
+msgstr "Wow, not bad at all"
+
+#: src/App.js:27
+msgid "Wow, what push"
+msgstr "Wow, what push"
+
+#: src/App.js:66
+msgid "Yor"
+msgstr "Yor"
+
+#: src/App.js:20
+msgid "my.custom.id"
+msgstr "Custom ID works"
+
+#: src/App.js:70
+msgid "{count, plural, =0 {There're no messages} one {There's # message in your inbox} other {There're # messages in your inbox}}"
+msgstr "{count, plural, =0 {There're no messages} one {There's # message in your inbox} other {There're # messages in your inbox}}"
