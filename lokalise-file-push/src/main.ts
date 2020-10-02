@@ -37,34 +37,49 @@ async function uploadFiles({
   filePath,
   tags,
   locales,
+  callback,
 }: {
   lokalise: LokaliseApi;
   projectId: string;
   filePath: string;
   tags: string[];
   locales?: string[];
+  callback: Function;
 }) {
   const languageCodes =
     locales || (await getLanguageISOCodes(lokalise, projectId));
   const starterPromise = Promise.resolve(null);
-  const uploadFile = async (lang: string) => {
+  const uploadFile = async (lang: string, callback: Function) => {
     try {
       const filename = filePath.replace(LANG_ISO_PLACEHOLDER, lang);
       const file: Blob = await readLanguageFile(filename);
       const buff = Buffer.from(file);
-      await lokalise.files.upload(projectId, {
+      let process = await lokalise.files.upload(projectId, {
         data: buff.toString("base64"),
         filename,
         lang_iso: lang,
         tags,
       });
-      console.log("Uploaded language file: " + filename);
+
+      let inteval = await setInterval(async () => {
+        if (process.status === "finished") {
+          clearInterval(inteval);
+          console.log("Uploaded language file: " + filename);
+          callback();
+        } else {
+          //@ts-ignore
+          process = await lokalise.queuedProcesses.get(process.process_id, {
+            project_id: projectId,
+          });
+        }
+      }, 1000);
     } catch (error) {
-      console.error(`Error reading language file ${lang}: ${error.message}`);
+      ghCore.setFailed(error ? error.message : "Unknown error");
     }
   };
   await languageCodes.reduce(
-    async (p: Promise<void>, lang: string) => p.then(() => uploadFile(lang)),
+    async (p: Promise<void>, lang: string) =>
+      p.then(() => uploadFile(lang, callback)),
     starterPromise
   );
 }
@@ -78,8 +93,7 @@ uploadFiles({
   ),
   tags: JSON.parse(tags),
   locales: JSON.parse(locales),
-})
-  .then(() => console.log("Finished"))
-  .catch((error: Error) =>
-    ghCore.setFailed(error ? error.message : "Unknown error")
-  );
+  callback: () => {
+    console.log("Finished");
+  },
+});
