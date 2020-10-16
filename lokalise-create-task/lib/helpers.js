@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const getContext = (text) => {
-    const foundText = text.match(/<!--- LOKALIZE CONTEXT FOR TRANSLATORS -->(\n| )*((.|\n)*)(\n| )*<!--- LOKALIZE CONTEXT FOR TRANSLATORS -->/);
-    return foundText ? foundText[2] : "";
+    const foundText = text.match(/<!--- LOKALIZE CONTEXT FOR TRANSLATORS -->((.|\n|\r|\t)*)<!--- LOKALIZE CONTEXT FOR TRANSLATORS -->/);
+    return foundText ? foundText[1] : "";
 };
 const getClubhouseLink = (text) => {
     const clubhouseLink = text.match(/Clubhouse Story: (.*)/);

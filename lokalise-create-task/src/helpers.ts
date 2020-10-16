@@ -1,8 +1,8 @@
 const getContext = (text: string): string => {
   const foundText = text.match(
-    /<!--- LOKALIZE CONTEXT FOR TRANSLATORS -->(\n| )*((.|\n)*)(\n| )*<!--- LOKALIZE CONTEXT FOR TRANSLATORS -->/
+    /<!--- LOKALIZE CONTEXT FOR TRANSLATORS -->((.|\n|\r|\t)*)<!--- LOKALIZE CONTEXT FOR TRANSLATORS -->/
   );
-  return foundText ? foundText[2] : "";
+  return foundText ? foundText[1] : "";
 };
 
 const getClubhouseLink = (text: string): string => {
