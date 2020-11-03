@@ -1,7 +1,9 @@
+#!/bin/sh
+
 curl \
 --fail --silent --show-error \
--h "accept: application/vnd.github.v3+json" \
--h "authorization: token $workflow_dispatch_deployments" \
+-H "Accept: application/vnd.github.v3+json" \
+-H "Authorization: token $WORKFLOW_DISPATCH_FILE_NAME" \
 https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/deploy_primary_dispatch.yaml/dispatches \
 --data-binary @- << EOF
 {
