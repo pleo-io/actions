@@ -1,0 +1,16 @@
+name: 'Sanitize branch name'
+author: 'Cole Bittel'
+description: 'Sanitize branch name for DNS creation'
+inputs:
+  GITHUB_DISPATCH_WORKFLOW_TOKEN:
+    description: 'GitHub token (PAC) with permissions to trigger a workflow_dispatch event on the repo'
+    required: true
+  WORKFLOW_DISPATCH_FILE_NAME:
+    description: 'GitHub workflow file name (including `.yaml`) for the workflow to dispatch (eg. `deploy_primary_dispatch.yaml`)'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.GITHUB_DISPATCH_WORKFLOW_TOKEN }}
+    - ${{ inputs.WORKFLOW_DISPATCH_FILE_NAME }}
