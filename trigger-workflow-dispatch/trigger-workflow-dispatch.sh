@@ -1,14 +1,16 @@
-curl \
---fail --silent --show-error \
--H "Accept: application/vnd.github.v3+json" \
--H "Authorization: token $WORKFLOW_DISPATCH_DEPLOYMENTS" \
-https://api.github.com/repos/pleo-io/callisto/actions/workflows/deploy_primary_dispatch.yaml/dispatches \
---data-binary @- << EOF
-{
-  "ref": "refs/heads/master",
-  "inputs": {
-    "sha": "${GITHUB_SHA}",
-    "env": "staging"
-  }
-}
-EOF
+env
+
+#curl \
+#--fail --silent --show-error \
+#-h "accept: application/vnd.github.v3+json" \
+#-h "authorization: token $workflow_dispatch_deployments" \
+#https://api.github.com/repos/pleo-io//actions/workflows/deploy_primary_dispatch.yaml/dispatches \
+#--data-binary @- << eof
+#{
+#  "ref": "refs/heads/master",
+#  "inputs": {
+#    "sha": "${github_sha}",
+#    "env": "${env}"
+#  }
+#}
+#eof

@@ -8,9 +8,17 @@ inputs:
   WORKFLOW_DISPATCH_FILE_NAME:
     description: 'GitHub workflow file name (including `.yaml`) for the workflow to dispatch (eg. `deploy_primary_dispatch.yaml`)'
     required: true
+  GITHUB_SHA:
+    description: 'Commit SHA to deploy to <env>'
+    required: true
+  ENV:
+    description: 'Kubernetes cluster to deploy to'
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.GITHUB_DISPATCH_WORKFLOW_TOKEN }}
     - ${{ inputs.WORKFLOW_DISPATCH_FILE_NAME }}
+    - ${{ inputs.GITHUB_SHA }}
+    - ${{ inputs.ENV }}
