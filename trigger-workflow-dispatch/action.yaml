@@ -15,6 +15,10 @@ inputs:
     description: 'The GitHub branch to source the WORKFLOW_DISPATCH_FILE_NAME from'
     required: false
     default: 'refs/heads/master'
+  ALLOW_CHAINED_DEPLOYMENTS:
+    description: 'Allow workflows to chain together. Eg. if you are deploying to staging, should it be allowed to trigger a production deployment on success?'
+    required: false
+    default: 'false'
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -23,3 +27,4 @@ runs:
     - ${{ inputs.WORKFLOW_DISPATCH_FILE_NAME }}
     - ${{ inputs.ENV }}
     - ${{ inputs.WORKFLOW_FILE_REF }}
+    - ${{ inputs.ALLOW_CHAINED_DEPLOYMENTS }}

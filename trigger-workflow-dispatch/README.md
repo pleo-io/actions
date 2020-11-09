@@ -1,26 +1,23 @@
 ### Description
 
-Trigger a `workflow_dispatch` event in GitHub
+Trigger a `workflow_dispatch` event in GitHub. The dispatch event is targeted to the same
+repository as the calling action, and at the workflow specified by the `WORKFLOW_DISPATCH_FILE_NAME`.
+
+Chained workflows can be turned off and on, typically useful so that regular, every day
+CICD pipelines can run the full suite of actions, while a rollback or reversion action,
+manually applied by a user, can run just a single workflow at a time.
 
 ### Usage
 
 ```yaml
-- name: Set branch name
-  id: set_branch_name
-  uses: pleo-io/actions/sanitize-branch-for-dns@d5761200d4a09d1f722b3d473f7ebe143ec33368
-  env:
-    github_head_ref: ${{ github.event.pull_request.head.ref }}
-    github_ref: ${{ github.event.pull_request.ref }}
 
-- run: echo "${{ steps.set_branch_name.outputs.branch_name }}"
+- name: Trigger production deployment
+  if: github.event.inputs.env  == 'staging' && github.event.inputs.allow_chained_workflows == 'true'
+  uses: pleo-io/actions/trigger-workflow-dispatch@v9.1
+  with:
+    WORKFLOW_DISPATCH_FILE_NAME: "deploy_primary.yaml"
+    GITHUB_DISPATCH_WORKFLOW_TOKEN: ${{ secrets.WORKFLOW_DISPATCH_DEPLOYMENTS }}
+    ENV: "production"
+    ALLOW_CHAINED_DEPLOYMENTS: "true"
+
 ```
-
-### Sanitization Rules
-
-* If `github_head_ref` is not empty, use this vars value to proceed with rules
-* If not, uuse `github_ref` and trim `/refs/heads/` prefix
-
-1. Replace all `_` with `-`
-2. Trim to 40 characters
-3. Lowercase all letters
-4. If last character is `-`, trim it
