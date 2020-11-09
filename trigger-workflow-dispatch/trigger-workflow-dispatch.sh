@@ -19,7 +19,7 @@ curl \
   "inputs": {
     "sha": "${GITHUB_SHA}",
     "env": "${INPUT_ENV}",
-    "allow_chained_deployments": "${INPUT_ALLOW_CHAINED_DEPLOYMENTS }"
+    "allow_chained_deployments": "${INPUT_ALLOW_CHAINED_DEPLOYMENTS}"
   }
 }
 EOF
