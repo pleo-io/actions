@@ -63,6 +63,8 @@ function uploadFiles({ lokalise, projectId, filePath, tags, locales, callback, }
                     filename,
                     lang_iso: lang,
                     tags,
+                    //@ts-ignore
+                    convert_placeholders: false,
                 });
                 let inteval = yield setInterval(() => __awaiter(this, void 0, void 0, function* () {
                     if (process.status === "finished") {
