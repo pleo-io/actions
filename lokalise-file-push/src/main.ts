@@ -59,6 +59,8 @@ async function uploadFiles({
         filename,
         lang_iso: lang,
         tags,
+        //@ts-ignore
+        convert_placeholders: false,
       });
 
       let inteval = await setInterval(async () => {
