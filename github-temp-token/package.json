@@ -20,7 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.0.0",
-    "@octokit/app": "^4.1.0",
+    "@octokit/auth-app": "^2.10.5",
     "@octokit/rest": "^18.0.1"
   },
   "devDependencies": {
