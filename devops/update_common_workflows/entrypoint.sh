@@ -55,4 +55,9 @@ fi
 PR_NUMBER=$(echo ${RESPONSE} | jq '.number')
 curl -s -H "${HEADER_AUTH_TOKEN}" -d '{"labels": ["automerge", "gh_action"]}' "https://api.github.com/repos/${USER}/${REPOSITORY}/issues/${PR_NUMBER}/labels"
 
+# Wait for PR to fully open and stufffff
+sleep 5
+
+curl -s -H "${HEADER_AUTH_TOKEN}" "https://api.github.com/repos/${USER}/${REPOSITORY}/pulls/${PR_NUMBER}/merge"
+
 set +x 
