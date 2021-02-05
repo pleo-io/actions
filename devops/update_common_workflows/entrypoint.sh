@@ -58,6 +58,6 @@ curl -H "${HEADER_AUTH_TOKEN}" -d '{"labels": ["automerge", "gh_action"]}' "http
 # Wait for PR to fully open and stufffff
 sleep 5
 
-curl -X PUT -H "${HEADER_AUTH_TOKEN}" "https://api.github.com/repos/${USER}/${REPOSITORY}/pulls/${PR_NUMBER}/merge" -d '{"commit_title":"commit_title"}'
+curl -X PUT -H "${HEADER_AUTH_TOKEN}" "https://api.github.com/repos/${USER}/${REPOSITORY}/pulls/${PR_NUMBER}/merge" -d '{"merge_method":"squash"}'
 
 set +x 
