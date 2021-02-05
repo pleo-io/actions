@@ -40,7 +40,7 @@ fi
 
 git commit -m "${COMMIT_MESSAGE}"
 
-git push origin ${GHA_DEPLOY_BRANCH_NAME}
+git push -f origin ${GHA_DEPLOY_BRANCH_NAME}
 
 # Create pull request from new branch into development branch
 RESPONSE=$(curl -s -H "${HEADER_AUTH_TOKEN}" -d '{"title":"Update Github Actions workflow, merge '${GHA_DEPLOY_BRANCH_NAME}' into '${DEVELOPMENT_BRANCH}'","base":"'${DEVELOPMENT_BRANCH}'", "head":"'${GHA_DEPLOY_BRANCH_NAME}'"}' "https://api.github.com/repos/${USER}/${REPOSITORY}/pulls")
