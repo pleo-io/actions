@@ -53,11 +53,9 @@ if [[ $PR_STATUS != *"open"* ]]; then
 fi
 
 PR_NUMBER=$(echo ${RESPONSE} | jq '.number')
-curl -H "${HEADER_AUTH_TOKEN}" -d '{"labels": ["automerge", "gh_action"]}' "https://api.github.com/repos/${USER}/${REPOSITORY}/issues/${PR_NUMBER}/labels"
 
 # Wait for PR to fully open and stufffff
 sleep 5
-
 curl -X PUT -H "${HEADER_AUTH_TOKEN}" "https://api.github.com/repos/${USER}/${REPOSITORY}/pulls/${PR_NUMBER}/merge" -d '{"merge_method":"squash"}'
 
 set +x 
