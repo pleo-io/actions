@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x 
+
 # Headers for curl requests
 HEADER_AUTH_TOKEN="Authorization: token ${GITHUB_TOKEN}"
 HEADER_SHA="Accept: application/vnd.github.v3.sha"
@@ -12,6 +14,7 @@ fi
 # Save current folder
 CURRENT_REPO_FOLDER=${PWD##*/}
 echo $CURRENT_REPO_FOLDER
+ls -lah
 
 
 # loop over all repos
@@ -69,3 +72,5 @@ do
     ls -lah 
     # rm -rf ./${repo}
 done
+
+set +x

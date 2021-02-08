@@ -10,5 +10,6 @@ RUN apt update \
     && apt clean
 
 ADD entrypoint.sh /entrypoint.sh
+ADD versions.json /versions.json
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
