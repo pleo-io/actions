@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -x
-
 # Headers for curl requests
 HEADER_AUTH_TOKEN="Authorization: token ${GITHUB_TOKEN}"
 HEADER_SHA="Accept: application/vnd.github.v3.sha"
@@ -13,49 +11,61 @@ fi
 
 # Save current folder
 CURRENT_REPO_FOLDER=${PWD##*/}
-
 echo $CURRENT_REPO_FOLDER
 
-# Clone the repo to be updated
-git clone https://${GITHUB_TOKEN}@github.com/${USER}/${REPOSITORY} ../${REPOSITORY}
 
-cd ../${REPOSITORY}
+# loop over all repos
+numRepos=$(jq  '.repositories | length' versions.json)
+for i in $(seq 0 $((numRepos-1)))
+do
+    repo=$(jq  -r '.repositories | .['"$i"'] | .name' versions.json)
+    echo "repo is $repo"
+    version=$(jq  -r '.repositories | .['"$i"'] | .version' versions.json)
+    echo "version is $version"
 
-git checkout ${DEVELOPMENT_BRANCH}
+    # Clone the repo to be updated
+    git clone https://${GITHUB_TOKEN}@github.com/pleo-io/${repo} ../${repo}
+    cd ../${repo}
 
-git checkout -b ${GHA_DEPLOY_BRANCH_NAME}
+    git checkout ${version}
 
-# Fake user to satisfy Github's curiosity
-git config --local user.email "gha@gha"
-git config --local user.name "GHA"
+    git checkout -b ${GHA_DEPLOY_BRANCH_NAME}
 
-# Copy updated Github Action workflow files to the repo
-cp -r ../${CURRENT_REPO_FOLDER}/${GHA_DEPLOYMENT_FOLDER}/.github/ .
+    # Fake user to satisfy Github's curiosity
+    git config --local user.email "gha@gha"
+    git config --local user.name "GHA"
 
-git add .github/*
+    # Copy updated Github Action workflow files to the repo
+    cp -r ../${CURRENT_REPO_FOLDER}/${GHA_DEPLOYMENT_FOLDER}/.github/ .
 
-if [ -z "$COMMIT_MESSAGE" ]; then
-    COMMIT_MESSAGE="Updating Github Action workflows."
-fi
+    git add .github/*
 
-git commit -m "${COMMIT_MESSAGE}"
+    if [ -z "$COMMIT_MESSAGE" ]; then
+        COMMIT_MESSAGE="Updating Github Action workflows."
+    fi
 
-git push -f origin ${GHA_DEPLOY_BRANCH_NAME}
+    git commit -m "${COMMIT_MESSAGE}"
 
-# Create pull request from new branch into development branch
-RESPONSE=$(curl -s -H "${HEADER_AUTH_TOKEN}" -d '{"title":"Update Github Actions workflow, merge '${GHA_DEPLOY_BRANCH_NAME}' into '${DEVELOPMENT_BRANCH}'","base":"'${DEVELOPMENT_BRANCH}'", "head":"'${GHA_DEPLOY_BRANCH_NAME}'"}' "https://api.github.com/repos/${USER}/${REPOSITORY}/pulls")
+    git push -f origin ${GHA_DEPLOY_BRANCH_NAME}
 
- # Check the status of the pull request
-PR_STATUS=$(echo ${RESPONSE} | jq '.state')
-if [[ $PR_STATUS != *"open"* ]]; then
-    # Exit upon pull request failure. Would need further investigation into the offending repo.
-    exit 1
-fi
+    # Create pull request from new branch into development branch
+    RESPONSE=$(curl -s -H "${HEADER_AUTH_TOKEN}" -d '{"title":"Update Github Actions workflow, merge '${GHA_DEPLOY_BRANCH_NAME}' into 'master'","base":"master", "head":"'${GHA_DEPLOY_BRANCH_NAME}'"}' "https://api.github.com/repos/pleo-io/${repo}/pulls")
 
-PR_NUMBER=$(echo ${RESPONSE} | jq '.number')
+    # Check the status of the pull request
+    PR_STATUS=$(echo ${RESPONSE} | jq '.state')
+    if [[ $PR_STATUS != *"open"* ]]; then
+        # Exit upon pull request failure. Would need further investigation into the offending repo.
+        exit 1
+    fi
 
-# Wait for PR to fully open and stufffff
-sleep 5
-curl -X PUT -H "${HEADER_AUTH_TOKEN}" "https://api.github.com/repos/${USER}/${REPOSITORY}/pulls/${PR_NUMBER}/merge" -d '{"merge_method":"squash"}'
+    PR_NUMBER=$(echo ${RESPONSE} | jq '.number')
 
-set +x 
+    # Wait for PR to fully open and stufffff
+    sleep 5
+    curl -X PUT -H "${HEADER_AUTH_TOKEN}" "https://api.github.com/repos/pleo-io/${repo}/pulls/${PR_NUMBER}/merge" -d '{"merge_method":"squash"}'
+
+    # Clean up workspace
+    cd ../
+    ls -lah 
+    # rm -rf ./${repo}
+done

@@ -1,0 +1,20 @@
+{
+  "source": "https://github.com/pleo-io/actions",
+  "repositories": [
+    {
+      "name": "luna",
+      "version": "devops-deploy",
+      "files": [
+        "build.yaml",
+        "test.yaml"
+      ]
+    },
+    {
+      "name": "jenkins-poc",
+      "version": "cd4dde572aa662d42af66e691421aa7986a093e6",
+      "files": [
+        "fake.yaml"
+      ]
+    }
+  ]
+}

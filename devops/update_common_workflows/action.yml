@@ -1,15 +1,9 @@
-name: "Deploy Github Actions"
-description: "Deploy a common Github Action to a repo."
-author: "MikeHamilton-RW"
+name: "Deploy Github Actions workflows"
+description: "Deploy a common Github Action workflow to a repo."
+author: "bittelc"
 inputs:
   GITHUB_TOKEN:
     description: "Github secret token to allow automated publishing of artifacts to a release."
-  USER:
-    description: "Organization or username."
-  REPOSITORY:
-    description: "Name of the repository."
-  DEVELOPMENT_BRANCH:
-    description: "Typically the develop or integration branch."
   GHA_DEPLOYMENT_FOLDER:
     description: "Folder name where the to-be-deployed Github Actions reside."
   COMMIT_MESSAGE:
@@ -19,6 +13,3 @@ inputs:
 runs:
   using: "docker"
   image: "Dockerfile"
-branding:
-  icon: 'tag'
-  color: 'purple'
