@@ -59,9 +59,9 @@ do
     git push -f origin ${GHA_DEPLOY_BRANCH_NAME}
 
     # Create pull request from new branch into development branch
-    data='{"title":"Update Github Actions workflow, merge '${GHA_DEPLOY_BRANCH_NAME}' into '${branch}',"base":"'${branch}'", "head":"'${GHA_DEPLOY_BRANCH_NAME}'"}'
+    data='{"title":"Update Github Actions workflow, merge '${GHA_DEPLOY_BRANCH_NAME}' into '${branch}'","base":"'${branch}'", "head":"'${GHA_DEPLOY_BRANCH_NAME}'"}'
     echo "data = $data"
-    RESPONSE=$(curl -s -H "${HEADER_AUTH_TOKEN}" -d '{"title":"Update Github Actions workflow, merge '${GHA_DEPLOY_BRANCH_NAME}' into '${branch}',"base":"'${branch}'", "head":"'${GHA_DEPLOY_BRANCH_NAME}'"}' "https://api.github.com/repos/pleo-io/${repo}/pulls")
+    RESPONSE=$(curl -s -H "${HEADER_AUTH_TOKEN}" -d '{"title":"Update Github Actions workflow, merge '${GHA_DEPLOY_BRANCH_NAME}' into '${branch}'","base":"'${branch}'", "head":"'${GHA_DEPLOY_BRANCH_NAME}'"}' "https://api.github.com/repos/pleo-io/${repo}/pulls")
     echo "response = $RESPONSE"
 
     # Check the status of the pull request
