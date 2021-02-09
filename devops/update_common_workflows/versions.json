@@ -11,7 +11,7 @@
     },
     {
       "name": "jenkins-poc",
-      "version": "cd4dde572aa662d42af66e691421aa7986a093e6",
+      "version": "021af182183bb0908f438ac9ca41ad4d904cab82",
       "files": [
         "build.yaml"
       ]
