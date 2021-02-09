@@ -22,8 +22,10 @@ do
     echo -e "\n\nbeginning new repo process\n\n"
     repo=$(jq  -r '.repositories | .['"$i"'] | .name' /versions.json)
     version=$(jq  -r '.repositories | .['"$i"'] | .version' /versions.json)
+    files=$(jq  -r '.repositories | .['"$i"'] | .files | join(",")' /versions.json)
     echo "repo is $repo"
     echo "version is $version"
+    echo "files is $files"
 
     # set version of version to update from
     cd ${base_dir}/gh-actions-test
@@ -42,8 +44,8 @@ do
     git config --local user.name "GHA"
 
     # Copy updated Github Action workflow files to the repo
-    cp -r ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/ .
-
+    echo "copy string = ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/{${files}}"
+    cp -r ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/{${files}} .
     git add .github/*
 
     if [ -z "$COMMIT_MESSAGE" ]; then
