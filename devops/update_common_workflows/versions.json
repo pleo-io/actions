@@ -3,7 +3,7 @@
   "repositories": [
     {
       "name": "luna",
-      "version": "origin/devops-deploy",
+      "version": "origin/centralize-workflows-poc",
       "files": [
         "build.yaml",
         "test.yaml"

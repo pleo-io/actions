@@ -18,7 +18,7 @@ echo "current repo = $CURRENT_REPO_FOLDER"
 numRepos=$(jq  '.repositories | length' /versions.json)
 for i in $(seq 0 $((numRepos-1)))
 do
-    echo "\n\nbeginning new repo process\n\n"
+    echo -e "\n\nbeginning new repo process\n\n"
     repo=$(jq  -r '.repositories | .['"$i"'] | .name' /versions.json)
     echo "repo is $repo"
     version=$(jq  -r '.repositories | .['"$i"'] | .version' /versions.json)
@@ -75,5 +75,5 @@ do
     ls -lah 
     rm -rf ./${repo}
     rm -rf ./gh-actions-test
-    echo "\n\nend $repo process\n\n"
+    echo -e "\n\nend $repo process\n\n"
 done
