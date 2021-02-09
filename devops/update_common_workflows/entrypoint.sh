@@ -33,8 +33,6 @@ do
     git clone https://${GITHUB_TOKEN}@github.com/pleo-io/${repo} ../${repo}
     cd ../${repo}
 
-    git checkout ${version}
-
     git checkout -b ${GHA_DEPLOY_BRANCH_NAME}
 
     # Fake user to satisfy Github's curiosity
