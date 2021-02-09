@@ -13,8 +13,12 @@ fi
 # get workflow library repo
 git clone https://${GITHUB_TOKEN}@github.com/pleo-io/gh-actions-test ${base_dir}/gh-actions-test
 
+echo "PWD = ${PWD}"
+echo "pwd = $(pwd)"
 base_dir=${PWD}
 echo $base_dir
+ls -lah
+pwd
 
 # loop over all repos
 numRepos=$(jq  '.repositories | length' /versions.json)
@@ -22,6 +26,7 @@ for i in $(seq 0 $((numRepos-1)))
 do
     cd $base_dir
     ls -lah
+    pwd
     echo -e "\n\nbeginning new repo process\n\n"
     repo=$(jq  -r '.repositories | .['"$i"'] | .name' /versions.json)
     echo "repo is $repo"
