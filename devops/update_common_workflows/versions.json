@@ -3,7 +3,7 @@
   "repositories": [
     {
       "name": "luna",
-      "version": "devops-deploy",
+      "version": "origin/devops-deploy",
       "files": [
         "build.yaml",
         "test.yaml"
