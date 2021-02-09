@@ -11,7 +11,7 @@ if [ -z "$GHA_DEPLOY_BRANCH_NAME" ]; then
 fi
 
 # get workflow library repo
-git clone https://${GITHUB_TOKEN}@github.com/pleo-io/gh-actions-test ../gh-actions-test
+git clone https://${GITHUB_TOKEN}@github.com/pleo-io/gh-actions-test gh-actions-test
 
 # loop over all repos
 numRepos=$(jq  '.repositories | length' /versions.json)
@@ -24,7 +24,7 @@ do
     echo "version is $version"
 
     # Clone the repo to update from
-    cd ../gh-actions-test
+    cd gh-actions-test
     git reset --hard ${version}
 
     # Clone the repo to be updated
