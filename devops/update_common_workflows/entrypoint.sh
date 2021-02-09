@@ -4,19 +4,22 @@
 HEADER_AUTH_TOKEN="Authorization: token ${GITHUB_TOKEN}"
 HEADER_SHA="Accept: application/vnd.github.v3.sha"
 
-
 # Set new branch name
 if [ -z "$GHA_DEPLOY_BRANCH_NAME" ]; then
     GHA_DEPLOY_BRANCH_NAME="update_gha_source"
 fi
 
+
 # get workflow library repo
-git clone https://${GITHUB_TOKEN}@github.com/pleo-io/gh-actions-test gh-actions-test
+git clone https://${GITHUB_TOKEN}@github.com/pleo-io/gh-actions-test ${base_dir}/gh-actions-test
+
+base_dir=${PWD}
 
 # loop over all repos
 numRepos=$(jq  '.repositories | length' /versions.json)
 for i in $(seq 0 $((numRepos-1)))
 do
+    cd $base_dir
     echo -e "\n\nbeginning new repo process\n\n"
     repo=$(jq  -r '.repositories | .['"$i"'] | .name' /versions.json)
     echo "repo is $repo"
@@ -28,8 +31,8 @@ do
     git reset --hard ${version}
 
     # Clone the repo to be updated
-    git clone https://${GITHUB_TOKEN}@github.com/pleo-io/${repo} ../${repo}
-    cd ../${repo}
+    git clone https://${GITHUB_TOKEN}@github.com/pleo-io/${repo} ${base_dir}/${repo}
+    cd $base_dir
     branch=$(git rev-parse --abbrev-ref HEAD)
     echo "branch = $branch"
 
@@ -40,7 +43,7 @@ do
     git config --local user.name "GHA"
 
     # Copy updated Github Action workflow files to the repo
-    cp -r ../gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/ .
+    cp -r ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/ .
 
     git add .github/*
 
@@ -77,6 +80,5 @@ do
     curl -X PUT -H "${HEADER_AUTH_TOKEN}" "https://api.github.com/repos/pleo-io/${repo}/pulls/${PR_NUMBER}/merge" -d '{"merge_method":"squash"}'
 
     # Clean up workspace
-    cd ../
-    echo -e "\n\nend $repo process\n\n"
+    echo -e "\nend $repo process\n"
 done
