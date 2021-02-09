@@ -50,7 +50,13 @@ do
         COMMIT_MESSAGE="Updating Github Action workflows."
     fi
 
-    git commit -m "${COMMIT_MESSAGE}"
+    # if nothing to commit, skip
+    committed=$(git commit -m "${COMMIT_MESSAGE}")
+    if [[ "$committed" == *"nothing to commit"* ]]; then
+        echo "nothing to change in $repo, skipping"
+        continue
+    fi
+
 
     git push -f origin ${GHA_DEPLOY_BRANCH_NAME}
 
