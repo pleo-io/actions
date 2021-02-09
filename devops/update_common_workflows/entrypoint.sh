@@ -32,6 +32,8 @@ do
     # Clone the repo to be updated
     git clone https://${GITHUB_TOKEN}@github.com/pleo-io/${repo} ../${repo}
     cd ../${repo}
+    branch=$(git branch)
+    echo "branch = $branch"
 
     git checkout -b ${GHA_DEPLOY_BRANCH_NAME}
 
@@ -53,7 +55,7 @@ do
     git push -f origin ${GHA_DEPLOY_BRANCH_NAME}
 
     # Create pull request from new branch into development branch
-    RESPONSE=$(curl -s -H "${HEADER_AUTH_TOKEN}" -d '{"title":"Update Github Actions workflow, merge '${GHA_DEPLOY_BRANCH_NAME}' into 'master'","base":"master", "head":"'${GHA_DEPLOY_BRANCH_NAME}'"}' "https://api.github.com/repos/pleo-io/${repo}/pulls")
+    RESPONSE=$(curl -s -H "${HEADER_AUTH_TOKEN}" -d '{"title":"Update Github Actions workflow, merge '${GHA_DEPLOY_BRANCH_NAME}' into ${branch},"base":"${branch}", "head":"'${GHA_DEPLOY_BRANCH_NAME}'"}' "https://api.github.com/repos/pleo-io/${repo}/pulls")
 
     # Check the status of the pull request
     PR_STATUS=$(echo ${RESPONSE} | jq '.state')
