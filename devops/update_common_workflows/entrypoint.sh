@@ -20,14 +20,15 @@ numRepos=$(jq  '.repositories | length' /versions.json)
 for i in $(seq 0 $((numRepos-1)))
 do
     cd $base_dir
+    ls -lah
     echo -e "\n\nbeginning new repo process\n\n"
     repo=$(jq  -r '.repositories | .['"$i"'] | .name' /versions.json)
     echo "repo is $repo"
     version=$(jq  -r '.repositories | .['"$i"'] | .version' /versions.json)
     echo "version is $version"
 
-    # Clone the repo to update from
-    cd gh-actions-test
+    # set version
+    cd ${base_dir}/gh-actions-test
     git reset --hard ${version}
 
     # Clone the repo to be updated
