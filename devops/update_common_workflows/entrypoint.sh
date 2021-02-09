@@ -11,6 +11,7 @@ fi
 
 
 # get workflow library repo
+base_dir=${PWD}
 git clone https://${GITHUB_TOKEN}@github.com/pleo-io/gh-actions-test ${base_dir}/gh-actions-test
 
 echo "PWD = ${PWD}"
