@@ -12,7 +12,10 @@ fi
 
 # get workflow library repo
 base_dir=${PWD}
+git config --local user.email "gha@gha"
+git config --local user.name "GHA"
 git clone https://${GITHUB_TOKEN}@github.com/pleo-io/gh-actions-test ${base_dir}/gh-actions-test
+
 
 # loop over all repos
 numRepos=$(jq  '.repositories | length' /versions.json)
@@ -39,13 +42,9 @@ do
 
     git checkout -b ${GHA_DEPLOY_BRANCH_NAME}
 
-    # Fake user to satisfy Github's curiosity
-    git config --local user.email "gha@gha"
-    git config --local user.name "GHA"
-
     # Copy updated Github Action workflow files to the repo
     echo "copy string = ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/workflows/{${files}}"
-    cp -r ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/{${files}} .
+    cp -r ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/workflows/{${files}} .
     git add .github/*
 
     if [ -z "$COMMIT_MESSAGE" ]; then
