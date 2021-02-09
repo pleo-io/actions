@@ -1,5 +1,10 @@
 #!/bin/bash
 
+set -e
+base_dir=${PWD}
+git config --global user.email "gha@gha"
+git config --global user.name "GHA"
+
 # Headers for curl requests
 HEADER_AUTH_TOKEN="Authorization: token ${GITHUB_TOKEN}"
 HEADER_SHA="Accept: application/vnd.github.v3.sha"
@@ -11,9 +16,6 @@ fi
 
 
 # get workflow library repo
-base_dir=${PWD}
-git config --local user.email "gha@gha"
-git config --local user.name "GHA"
 git clone https://${GITHUB_TOKEN}@github.com/pleo-io/gh-actions-test ${base_dir}/gh-actions-test
 
 
