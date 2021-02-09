@@ -5,8 +5,7 @@
       "name": "luna",
       "version": "origin/centralize-workflows-poc",
       "files": [
-        "build.yaml",
-        "test.yaml"
+        "build.yaml"
       ]
     },
     {
