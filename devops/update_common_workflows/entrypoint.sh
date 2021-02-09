@@ -44,7 +44,7 @@ do
     git config --local user.name "GHA"
 
     # Copy updated Github Action workflow files to the repo
-    echo "copy string = ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/{${files}}"
+    echo "copy string = ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/workflows/{${files}}"
     cp -r ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/{${files}} .
     git add .github/*
 
