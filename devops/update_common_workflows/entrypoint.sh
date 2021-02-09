@@ -32,7 +32,7 @@ do
     # Clone the repo to be updated
     git clone https://${GITHUB_TOKEN}@github.com/pleo-io/${repo} ../${repo}
     cd ../${repo}
-    branch=$(git branch)
+    branch=$(git rev-parse --abbrev-ref HEAD)
     echo "branch = $branch"
 
     git checkout -b ${GHA_DEPLOY_BRANCH_NAME}
