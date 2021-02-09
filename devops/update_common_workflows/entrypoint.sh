@@ -60,11 +60,13 @@ do
 
     # Create pull request from new branch into development branch
     RESPONSE=$(curl -s -H "${HEADER_AUTH_TOKEN}" -d '{"title":"Update Github Actions workflow, merge '${GHA_DEPLOY_BRANCH_NAME}' into ${branch},"base":"${branch}", "head":"'${GHA_DEPLOY_BRANCH_NAME}'"}' "https://api.github.com/repos/pleo-io/${repo}/pulls")
+    echo "response = $RESPONSE"
 
     # Check the status of the pull request
     PR_STATUS=$(echo ${RESPONSE} | jq '.state')
     if [[ $PR_STATUS != *"open"* ]]; then
         # Exit upon pull request failure. Would need further investigation into the offending repo.
+        echo "this PR isnt open or something. debug yo, PR status = $PR_STATUS"
         exit 1
     fi
 
