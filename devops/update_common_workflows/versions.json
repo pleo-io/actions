@@ -11,7 +11,7 @@
     },
     {
       "name": "jenkins-poc",
-      "version": "021af182183bb0908f438ac9ca41ad4d904cab82",
+      "version": "origin/centralize-workflows-poc",
       "files": [
         "build.yaml"
       ]
