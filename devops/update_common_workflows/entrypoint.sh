@@ -1,10 +1,13 @@
 #!/bin/bash
 
-set -x 
-
 # Headers for curl requests
 HEADER_AUTH_TOKEN="Authorization: token ${GITHUB_TOKEN}"
 HEADER_SHA="Accept: application/vnd.github.v3.sha"
+
+ls -lah 
+
+ls -lah /
+
 
 # Set new branch name
 if [ -z "$GHA_DEPLOY_BRANCH_NAME" ]; then
@@ -78,5 +81,3 @@ do
     ls -lah 
     # rm -rf ./${repo}
 done
-
-set +x

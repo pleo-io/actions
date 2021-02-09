@@ -7,7 +7,7 @@ If you have 30 repos, utilize this action 30 times in your yaml script to push o
 ## Action Inputs
 - **GITHUB_TOKEN**: Required. Typically this will be `${{ secrets.GITHUB_TOKEN }}`.
 - **USER**: Required. User or organization owning the repository where you are deploying the Github Action.
-- **REPOSITORY**: Required. User and name of the repository to pull the release. Currently, you must have permissions to create and merge PRs in that repository. Future updates will include a flag to allow pulling from any public repository.
+- **REPOSITORY**: Required. Name of the repository to pull the release. Currently, you must have permissions to create and merge PRs in that repository. Future updates will include a flag to allow pulling from any public repository.
 - **DEVELOPMENT_BRANCH**: Required. Set to the development branch of the repository you are pulling from, i.e., 'develop' or 'integration'.
 - **COMMIT_MESSAGE**: Optional. Custom message for commit. Default message: Updating Github Action workflows.
 - **GHA_DEPLOY_BRANCH_NAME**: Optional. Name of the branch to be created. Default branch name: update_gha_source.
