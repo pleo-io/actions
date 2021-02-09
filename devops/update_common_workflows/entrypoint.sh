@@ -13,8 +13,14 @@ fi
 
 # Save current folder
 CURRENT_REPO_FOLDER=${PWD##*/}
-echo $CURRENT_REPO_FOLDER
+echo "current repo = $CURRENT_REPO_FOLDER"
 ls -lah
+
+echo "path = "
+pwd
+
+echo "parent repo has"
+ls -lah ../
 
 
 # loop over all repos
