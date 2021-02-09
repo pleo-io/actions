@@ -14,6 +14,7 @@ fi
 git clone https://${GITHUB_TOKEN}@github.com/pleo-io/gh-actions-test ${base_dir}/gh-actions-test
 
 base_dir=${PWD}
+echo $base_dir
 
 # loop over all repos
 numRepos=$(jq  '.repositories | length' /versions.json)
@@ -27,7 +28,7 @@ do
     version=$(jq  -r '.repositories | .['"$i"'] | .version' /versions.json)
     echo "version is $version"
 
-    # set version
+    # set version of version to update from
     cd ${base_dir}/gh-actions-test
     git reset --hard ${version}
 
