@@ -8,7 +8,6 @@ ls -lah
 
 ls -lah /
 
-
 # Set new branch name
 if [ -z "$GHA_DEPLOY_BRANCH_NAME" ]; then
     GHA_DEPLOY_BRANCH_NAME="update_gha_source"
@@ -27,12 +26,12 @@ ls -lah ../
 
 
 # loop over all repos
-numRepos=$(jq  '.repositories | length' versions.json)
+numRepos=$(jq  '.repositories | length' /versions.json)
 for i in $(seq 0 $((numRepos-1)))
 do
-    repo=$(jq  -r '.repositories | .['"$i"'] | .name' versions.json)
+    repo=$(jq  -r '.repositories | .['"$i"'] | .name' /versions.json)
     echo "repo is $repo"
-    version=$(jq  -r '.repositories | .['"$i"'] | .version' versions.json)
+    version=$(jq  -r '.repositories | .['"$i"'] | .version' /versions.json)
     echo "version is $version"
 
     # Clone the repo to be updated
