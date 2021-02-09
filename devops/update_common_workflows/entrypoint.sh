@@ -46,7 +46,7 @@ do
 
     # Copy updated Github Action workflow files to the repo
     echo "copy string = ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/workflows/{${files}}"
-    cp -r ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/workflows/{${files}} .
+    cp -r ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/workflows/{$files} .
     git add .github/*
 
     if [ -z "$COMMIT_MESSAGE" ]; then
