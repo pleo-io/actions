@@ -10,9 +10,8 @@ if [ -z "$GHA_DEPLOY_BRANCH_NAME" ]; then
     GHA_DEPLOY_BRANCH_NAME="update_gha_source"
 fi
 
-# Save current folder
-CURRENT_REPO_FOLDER=${PWD##*/}
-echo "current repo = $CURRENT_REPO_FOLDER"
+# get workflow library repo
+git clone https://${GITHUB_TOKEN}@github.com/pleo-io/gh-actions-test ../gh-actions-test
 
 # loop over all repos
 numRepos=$(jq  '.repositories | length' /versions.json)
@@ -25,7 +24,6 @@ do
     echo "version is $version"
 
     # Clone the repo to update from
-    git clone https://${GITHUB_TOKEN}@github.com/pleo-io/gh-actions-test ../gh-actions-test
     cd ../gh-actions-test
     git reset --hard ${version}
 
@@ -80,6 +78,5 @@ do
     cd ../
     ls -lah 
     rm -rf ./${repo}
-    rm -rf ./gh-actions-test
     echo -e "\n\nend $repo process\n\n"
 done
