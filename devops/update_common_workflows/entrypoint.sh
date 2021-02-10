@@ -60,12 +60,11 @@ do
     fi
 
     # if nothing to commit, skip
-    committed=$(git commit -m "${COMMIT_MESSAGE}")
-    echo "committed = $committed"
-    if [[ "$committed" == *"nothing to commit"* ]]; then
+    if [[ -z $(git status -s) ]]; then
         echo "nothing to change in $repo, skipping"
         continue
     fi
+    git commit -m "${COMMIT_MESSAGE}"
     echo "done with committing"
 
     git push -f origin ${GHA_DEPLOY_BRANCH_NAME}
