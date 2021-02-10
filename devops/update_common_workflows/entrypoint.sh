@@ -49,7 +49,7 @@ do
         echo "j = $j"
         file=$(jq  -r '.repositories | .['"$i"'] | .files | nth('"$j"')' /versions.json)
         echo "file = $file"
-        cp -r ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/workflows/${file} .
+        cp -r ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/workflows/${file} .github/workflows/
     done
     echo "listing repos workflows, sourced from"
     ls -lah ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/workflows/
