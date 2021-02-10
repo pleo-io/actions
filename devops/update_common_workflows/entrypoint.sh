@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 base_dir=${PWD}
 git config --global user.email "gha@gha"
 git config --global user.name "GHA"
@@ -28,10 +28,7 @@ do
     repo=$(jq  -r '.repositories | .['"$i"'] | .name' /versions.json)
     version=$(jq  -r '.repositories | .['"$i"'] | .version' /versions.json)
     numFiles=$(jq  -r '.repositories | .['"$i"'] | .files | length' /versions.json)
-    files=$(jq  -r '.repositories | .['"$i"'] | .files | join(",")' /versions.json)
-    echo "repo is $repo"
     echo "version is $version"
-    echo "files is $files"
 
     # set version of version to update from
     cd ${base_dir}/gh-actions-test
@@ -51,7 +48,7 @@ do
     do
         echo "j = $j"
         file=$(jq  -r '.repositories | .['"$i"'] | .files | nth('"$j"')' /versions.json)
-        echo "file = $fle"
+        echo "file = $file"
         cp -r ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/workflows/${file} .
     done
     # OK RANT OVER. FIX THIS TOMORROW
@@ -96,3 +93,5 @@ do
     # Clean up workspace
     echo -e "\nend $repo process\n"
 done
+
+set +x
