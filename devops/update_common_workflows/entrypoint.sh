@@ -39,7 +39,7 @@ do
     git clone https://${GITHUB_TOKEN}@github.com/pleo-io/${repo} ${base_dir}/${repo}
     cd ${base_dir}/${repo}
     branch=$(git rev-parse --abbrev-ref HEAD)
-    echo "branch = $branch"
+    echo "default branch = $branch"
 
     git checkout -b ${GHA_DEPLOY_BRANCH_NAME}
 
@@ -51,12 +51,6 @@ do
         echo "file = $file"
         cp -r ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/workflows/${file} .github/workflows/
     done
-    echo "listing repos workflows, sourced from"
-    ls -lah ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/workflows/
-
-    echo "listing repos workflows, destination to"
-    ls -lah
-    echo "listing repos workflows, destination to, .github/workflows"
     ls -lah .github/workflows/
 
 
@@ -72,7 +66,6 @@ do
         echo "nothing to change in $repo, skipping"
         continue
     fi
-
 
     git push -f origin ${GHA_DEPLOY_BRANCH_NAME}
 
