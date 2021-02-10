@@ -28,6 +28,7 @@ do
     repo=$(jq  -r '.repositories | .['"$i"'] | .name' /versions.json)
     version=$(jq  -r '.repositories | .['"$i"'] | .version' /versions.json)
     numFiles=$(jq  -r '.repositories | .['"$i"'] | .files | length' /versions.json)
+    echo "repo is $repo"
     echo "version is $version"
 
     # set version of version to update from
@@ -43,7 +44,6 @@ do
     git checkout -b ${GHA_DEPLOY_BRANCH_NAME}
 
 
-    # YOU GOTTA USE SOME DEBIAN MODE OF COPYING SHIT BRO
     for j in $(seq 0 $((numFiles-1)))
     do
         echo "j = $j"
@@ -51,9 +51,13 @@ do
         echo "file = $file"
         cp -r ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/workflows/${file} .
     done
-    # OK RANT OVER. FIX THIS TOMORROW
+    echo "listing repos workflows, sourced from"
     ls -lah ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/workflows/
 
+    echo "listing repos workflows, destination to"
+    ls -lah
+    echo "listing repos workflows, destination to, .github/workflows"
+    ls -lah .github/workflows/
 
 
     git add .github/*
