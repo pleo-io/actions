@@ -3,7 +3,7 @@
   "repositories": [
     {
       "name": "luna",
-      "version": "origin/centralize-workflows-poc",
+      "version": "f65040a23f263fbe5088cd45f8b00a25308f66ac",
       "files": [
         "build.yaml"
       ]
@@ -12,7 +12,8 @@
       "name": "jenkins-poc",
       "version": "origin/centralize-workflows-poc",
       "files": [
-        "build.yaml"
+        "build.yaml",
+        "test.yaml"
       ]
     }
   ]

@@ -27,7 +27,7 @@ do
     echo -e "\n\nbeginning new repo process\n\n"
     repo=$(jq  -r '.repositories | .['"$i"'] | .name' /versions.json)
     version=$(jq  -r '.repositories | .['"$i"'] | .version' /versions.json)
-    # numFiles=$(jq  -r '.repositories | .['"$i"'] | .files | length' /versions.json)
+    numFiles=$(jq  -r '.repositories | .['"$i"'] | .files | length' /versions.json)
     files=$(jq  -r '.repositories | .['"$i"'] | .files | join(",")' /versions.json)
     echo "repo is $repo"
     echo "version is $version"
@@ -45,15 +45,17 @@ do
 
     git checkout -b ${GHA_DEPLOY_BRANCH_NAME}
 
-    # Copy updated Github Action workflow files to the repo
-    echo "copy string = ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/workflows/{${files}}"
-
-
-
 
     # YOU GOTTA USE SOME DEBIAN MODE OF COPYING SHIT BRO
-    cp -r ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/workflows/{$files} .
+    for j in $(seq 0 $((numFiles-1)))
+    do
+        echo "j = $j"
+        file=$(jq  -r '.repositories | .['"$i"'] | .files | nth('"$j"')' /versions.json)
+        echo "file = $fle"
+        cp -r ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/workflows/${file} .
+    done
     # OK RANT OVER. FIX THIS TOMORROW
+    ls -lah ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/workflows/
 
 
 
