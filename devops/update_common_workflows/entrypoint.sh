@@ -52,8 +52,6 @@ do
         echo "file = $file"
         cp -r ${base_dir}/gh-actions-test/${GHA_DEPLOYMENT_FOLDER}/.github/workflows/${file} .github/workflows/
     done
-    ls -lah .github/workflows/
-
 
     git add .github/*
 
