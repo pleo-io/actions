@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -ex
+
 base_dir=${PWD}
 git config --global user.email "gha@gha"
 git config --global user.name "GHA"
@@ -62,10 +63,12 @@ do
 
     # if nothing to commit, skip
     committed=$(git commit -m "${COMMIT_MESSAGE}")
+    echo "committed = $committed"
     if [[ "$committed" == *"nothing to commit"* ]]; then
         echo "nothing to change in $repo, skipping"
         continue
     fi
+    echo "done with committing"
 
     git push -f origin ${GHA_DEPLOY_BRANCH_NAME}
 
