@@ -10,7 +10,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@actions/core": "^1.1.1",
+    "@actions/core": "^1.2.6",
     "@lokalise/node-api": "5.0.0"
   },
   "devDependencies": {
