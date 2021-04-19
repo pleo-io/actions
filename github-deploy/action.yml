@@ -7,10 +7,10 @@ inputs:
     required: true
   github_app_id:
     required: true
-    default: "32215"
+    default: "111169"
   github_app_installation_id:
     required: true
-    default: "1105541"
+    default: "16362097"
 
   deploy_repository:
     description: The repository to trigger a deploy event on \"{owner}/{repo}\" defaults to `$GITHUB_REPOSITORY`
