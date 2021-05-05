@@ -8,7 +8,7 @@ echo allow_chained_deployments = "${INPUT_ALLOW_CHAINED_DEPLOYMENTS}"
 
 
 curl \
---fail --silent --show-error \
+# --fail --silent --show-error \
 -H "Accept: application/vnd.github.v3+json" \
 -H "Authorization: token ${INPUT_GITHUB_DISPATCH_WORKFLOW_TOKEN}" \
 "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/${INPUT_WORKFLOW_DISPATCH_FILE_NAME}/dispatches" \
