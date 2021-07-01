@@ -1,0 +1,28 @@
+name: 'S3 Cache'
+description: 'Cache artifacts like dependencies and build outputs to S3 to improve workflow execution time'
+author: 'T.J Shamhu'
+inputs:
+    path:
+        description: 'A list of files, directories, and wildcard patterns to cache and restore'
+        required: true
+    key:
+        description: 'An explicit key for restoring and saving the cache'
+        required: true
+    bucket:
+        description: 'The an S3 bucket at which the artifacts will be kept'
+        required: true
+    compress:
+        description: 'Whether or not your artifacts are compressed before caching'
+        required: false
+        default: 'true'
+outputs:
+    cache-hit:
+        description: 'A boolean value to indicate an exact match was found for the key'
+runs:
+    using: 'node12'
+    main: 'dist/restore/index.js'
+    post: 'dist/save/index.js'
+    post-if: 'success()'
+branding:
+    icon: 'archive'
+    color: 'gray-dark'
