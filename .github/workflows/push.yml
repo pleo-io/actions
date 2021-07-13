@@ -5,17 +5,22 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2.3.4
+
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+
     - name: Test
       uses: stingaa/action-builder/shell@master
       with:
         entrypoint: make
         args: test
+
     - name: Lint
       uses: stingaa/action-builder/shell@master
       with:
         entrypoint: make
         args: lint
+
     - name: Build
       uses: stingaa/action-builder/docker@master
       with:
