@@ -15,11 +15,11 @@ jobs:
         entrypoint: make
         args: test
 
-    - name: Lint
-      uses: stingaa/action-builder/shell@master
-      with:
-        entrypoint: make
-        args: lint
+    # - name: Lint
+    #   uses: stingaa/action-builder/shell@master
+    #   with:
+    #     entrypoint: make
+    #     args: lint
 
     - name: Build
       uses: stingaa/action-builder/docker@master
